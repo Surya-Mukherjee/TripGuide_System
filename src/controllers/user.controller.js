@@ -5,6 +5,7 @@ import { apiResponse } from '../utilities/apiResponse.js'
 import { upploadToCloudinary } from '../utilities/cloudinary.js'
 import { updateById } from '../utilities/updation.js'
 import { Review } from '../models/review.model.js'
+import { Guide } from '../models/guides.model.js'
 
 const refreshAndAccessTokenGenerator=async(user_id)=>{
     const user= await User.findById(user_id);
@@ -51,6 +52,24 @@ const registerUser= asyncHandler(async(req,res)=>{
             password,
             role
          })
+         if(role==='guide'){
+           try {
+             const { bio ,pricePerHour,availableDays,city,experiencedYrs}=req.body;
+             if (!pricePerHour || !city || !experiencedYrs) {
+                 throw new apiError(400, "Required guide fields missing");
+     }
+             const guide= await Guide.create({
+                 pricePerHour,
+                 bio:bio?.trim().toLowerCase(),
+                 availableDays,
+                 city,
+                 experiencedYrs
+             })
+           } catch (error) {
+               throw new apiError(500,"Guide not created")
+           }
+           
+         }
          const safeUser= user.toObject();
          delete safeUser.password;
          delete safeUser.refreshToken
