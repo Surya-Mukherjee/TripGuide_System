@@ -4,9 +4,12 @@ import { apiResponse } from "../utilities/apiResponse";
 import { Guide } from "../models/guides.model";
 import {User} from "../models/user.model"
 import { Review } from "../models/review.model";
-import { updateProfile } from "./user.controller";
 import { upploadToCloudinary } from "../utilities/cloudinary";
+import { updateById } from "../utilities/updation";
 
+
+
+//gettin guide profile
 const getGuideProfile= asyncHandler(async(req,res)=>{
     const guide= await Guide.findOne({userId:req.user._id}).populate("userId","userName profilePic email")
 
@@ -22,28 +25,105 @@ const getGuideProfile= asyncHandler(async(req,res)=>{
         new apiResponse(200,{guide,review},"profile fetched successfully")
     )
 })
-const updateGuideProfile=asyncHandler(async(req,res)=>{
-    const userId= req.user._id;
-    if(!userId){
-        throw new apiError(500,"cant fetch userid")
-    }
-    const {userName,email}=req.body
-    let url;
-    const profilepicpath= req.file?.path
-    if(!profilepicpath){
-        throw new apiError(500,"no path is associated")
 
+//updating guide profile
+const updateGuideProfile=asyncHandler(async(req,res)=>{
+
+
+    const userId= req.user._id;
+
+
+    if(!userId){
+
+        throw new apiError(404,"user not located")
     }
-    url= upploadToCloudinary(profile)
-     if(!userupdate){
-        throw new apiError(500,"user not updated")
-          }
+
+    const {userName,email,bio,pricePerHour,city}=req.body
+
+    let url;
+
+    const profilepicpath= req.file?.path
+
+     if(profilepicpath){
+
+        url= upploadToCloudinary(profilepicpath)
+     
+         if(!url){
+            throw new apiError(500,"the cloud failed to upload")
+         }
+     updatesAccount.profilePic=url?.trim()
+    }
+
+
+    const updatesAccount={}
+
+     let userUpdate= null
+
+     if (userName) updatesAccount.userName = userName.trim();
+
+     if (email) updatesAccount.email = email.trim();
+         
+     if(Object.keys(updatesAccount).length>0){
+
+
+        userUpdate=await updateById(userId,updatesAccount)
+
+        if(!userUpdate){
+
+            throw new apiError(500,"user account not updated")
+         }
+        }
+
+    const updateGuideDetails={}
+
+          
+     if(bio){
+
+            updateGuideDetails.bio=bio.trim()
+        }
+
+     if(pricePerHour){
+
+            updateGuideDetails.pricePerHour=pricePerHour
+
+        }
+
+    if(city){
+
+            updateGuideDetails.city=city.trim()
+
+        }
+
+    let updateGuideAccounts=null
+
+    if(Object.keys(updateGuideDetails).length>0){
+
+         updateGuideAccounts=await updateGuide(req.user._id,updateGuideDetails)
+
+        if(!updateGuideAccounts){
+
+            throw new apiError(500,"profile is not updated. try again!")
+
+        }}
+
+        if(!userUpdate && !updateGuideAccounts){
+
+            throw new apiError(400,"No fields were provided to update")
+        }
+
+        return res.status(200).json(
+
+            new apiResponse(200,{userUpdate,updateGuideAccounts},"Guide profile updated successfully")
+
+        )
 })
+
+
 const listGuides= asyncHandler(async(req,res)=>{
     const{city, name,maxexpYrs,minexpYrs}=req.query;
-    const filter={
 
-    }
+    const filter={}
+    
     if(city){
         filter.city={$regex:city,$options:'i'}
     }
@@ -78,4 +158,4 @@ const getPublicGuideGuide =asyncHandler(async(req,res)=>{
         new apiResponse(200,{guide:guide},"profile fetched successfully")
     )
 })
-export { getGuideProfile, getPublicGuideGuide,listGuides}
+export { getGuideProfile, getPublicGuideGuide,listGuides,updateGuideProfile}

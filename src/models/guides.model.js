@@ -35,7 +35,8 @@ const guidesSchema= new Schema(
             required:true
         },
         isActive:{
-            type:boolean
+            type:boolean,
+            default:true
         },
         ratings:{
             type:Number,
