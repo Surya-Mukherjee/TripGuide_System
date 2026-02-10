@@ -1,1 +1,1 @@
-export const db_name='tripGuideBookingDB';
+export const db_name='TripGuideBooking';

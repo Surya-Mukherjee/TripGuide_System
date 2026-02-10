@@ -6,23 +6,25 @@ import { upploadToCloudinary } from '../utilities/cloudinary.js'
 import { updateById } from '../utilities/updation.js'
 import { Review } from '../models/review.model.js'
 import { Guide } from '../models/guides.model.js'
-
+import fs from 'fs'
 const refreshAndAccessTokenGenerator=async(user_id)=>{
     const user= await User.findById(user_id);
     const accessToken=user.accessTokenGenerator();
     const refreshToken=user.refreshTokenGenerator();
     user.refreshToken=refreshToken
     user.save({validateBeforeSave:false})
+    return {accessToken,refreshToken}
 }
 const registerUser= asyncHandler(async(req,res)=>{
      const {userName,email,role,password}= req.body
-
+      console.log(req.body)
      //check for empty username and email
-     if(userName.trim()==="" || email.trim()===""||password.trim()===""){
+     if(userName =="" || email ==""||password ==""){
+        console.log("hi")
         throw new apiError(400,"userName, email and password are  required for registration")
      }
-    const normalizedUserName = userName.toLowerCase();
-     const normalizedEmail = email.toLowerCase();
+    const normalizedUserName = userName?.toLowerCase();
+     const normalizedEmail = email?.toLowerCase();
 
      const registereduser = await User.findOne({
      $or: [
@@ -30,58 +32,59 @@ const registerUser= asyncHandler(async(req,res)=>{
     { email: normalizedEmail }
   ]
 });
-
+         const profilePicpath=req.file?.path
      if(registereduser){
+        fs.unlinkSync(profilePicpath)
+        
         throw new apiError(409,"user with same credentials already exists")
      }
-     const profilePicpath=req.file?.path
+
+     console.log(req.file)
      if(!profilePicpath){
         throw new apiError(400,"required profilepic")
      }
      console.log("profile-pic path:",profilePicpath)
      const profilePicUrl= await upploadToCloudinary(profilePicpath)
-
+    console.log("profilepic url:",profilePicUrl)
      if(!profilePicUrl){
-        throw new apiError(500,"Internal server error")
+        throw new apiError(504,"Internal server error")
      }
-    try {
-         const user = await User.create({
-            userName:userName.toLowerCase(),
-            email,
-            profilePic:profilePicUrl,
-            password,
-            role
-         })
-         if(role==='guide'){
-           try {
-             const { bio ,pricePerHour,availableDays,city,experiencedYrs}=req.body;
-             if (!pricePerHour || !city || !experiencedYrs) {
-                 throw new apiError(400, "Required guide fields missing");
-     }
-             const guide= await Guide.create({
-                 pricePerHour,
-                 bio:bio?.trim().toLowerCase(),
-                 availableDays,
-                 city,
-                 experiencedYrs
-             })
-           } catch (error) {
-               throw new apiError(500,"Guide not created")
-           }
+    
+     
+        
+           const user = await User.create({
+              userName,
+              email,
+              profilePic:profilePicUrl,
+              password,
+              role
+           })
+    
+          
+    //      if(role==='guide'){
+    //        try {
+    //          const { bio ,pricePerHour,availableDays,city,experiencedYrs}=req.body;
+    //          if (!pricePerHour || !city || !experiencedYrs) {
+    //              throw new apiError(400, "Required guide fields missing");
+    //  }
+    //          const guide= await Guide.create({
+    //              pricePerHour,
+    //              bio:bio?.trim().toLowerCase(),
+    //              availableDays,
+    //              city,
+    //              experiencedYrs
+    //          })
+    //        } catch (error) {
+    //            throw new apiError(500,"Guide not created")
+    //        }
            
-         }
-         const safeUser= user.toObject();
-         delete safeUser.password;
-         delete safeUser.refreshToken
-    } catch (error) {
-        if(error.code==11000){
-            throw new apiError(409,"user already exists")
-        }
-        throw new apiError(500,"registration failed")
-    }
+        //  }
+     const userStatus= await User.findById(user._id).select("-password -refreshToken")
+         console.log("hi2")
+   
 
      return res.status(201).json( 
-        new apiResponse(200,safeUser,"User registered successfully")
+        new apiResponse(200,userStatus,"User registered successfully")
      )
 })
 
@@ -171,7 +174,7 @@ const getProfile= asyncHandler(async(req,res)=>{
 })
 //update profile(pic,username,email,password)
 const updateProfile=asyncHandler(async(req,res)=>{
-    const {username,email}=req.body;
+    const {userName,email}=req.body;
      
     const profilePicUpdatePath= req.file?.path;
     let url;
@@ -181,8 +184,11 @@ const updateProfile=asyncHandler(async(req,res)=>{
     }
 
     const updateFields={
-        userName:username,
-        email:email
+        userName:userName
+
+    }
+    if(email){
+        updateFields.email=email
     }
     if(url){
         updateFields.profilePic = url
@@ -231,7 +237,7 @@ const passwordUpdate=asyncHandler(async(req,res)=>{
 const deleteUser= asyncHandler(async(req,res)=>{
     const {_id}=req.user;
     const {deleteUserValidity}=req.body;
-    if(!deleteUserValidity){
+    if(deleteUserValidity=='false'){
         return res.json(
             new apiResponse(200,{},"Deleting cancelled")
         )

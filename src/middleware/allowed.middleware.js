@@ -1,7 +1,7 @@
-import { asyncHandler } from "../utilities/asyncHandler";
-import { User } from "../models/user.model";
-import { apiError } from "../utilities/apiError";
-import { apiResponse } from "../utilities/apiResponse";
+import { asyncHandler } from "../utilities/asyncHandler.js";
+import { User } from "../models/user.model.js";
+import { apiError } from "../utilities/apiError.js";
+import { apiResponse } from "../utilities/apiResponse.js";
 
 const requiredGuide=asyncHandler(async(req,res,next)=>{
   const {role}=req.user;

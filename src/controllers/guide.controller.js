@@ -1,11 +1,11 @@
-import { asyncHandler } from "../utilities/asyncHandler";
-import { apiError } from "../utilities/apiError";
-import { apiResponse } from "../utilities/apiResponse";
-import { Guide } from "../models/guides.model";
-import {User} from "../models/user.model"
-import { Review } from "../models/review.model";
-import { upploadToCloudinary } from "../utilities/cloudinary";
-import { updateById } from "../utilities/updation";
+import { asyncHandler } from "../utilities/asyncHandler.js";
+import { apiError } from "../utilities/apiError.js";
+import { apiResponse } from "../utilities/apiResponse.js";
+import { Guide } from "../models/guides.model.js";
+import {User} from "../models/user.model.js"
+import { Review } from "../models/review.model.js";
+import { upploadToCloudinary } from "../utilities/cloudinary.js";
+import { updateById } from "../utilities/updation.js";
 
 
 

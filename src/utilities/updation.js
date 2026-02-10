@@ -1,12 +1,12 @@
-import { Guide } from "../models/guides.model";
-import { User } from "../models/user.model";
+import { Guide } from "../models/guides.model.js";
+import { User } from "../models/user.model.js";
 
-export const updateById=async(UserId,updates)=>{
+export const updateById=async(userId,updates)=>{
     return await User.findByIdAndUpdate(
         userId,
         updates,
         {new:true}
-    )
+    ).select("-password -refreshToken")
 }
 
 export const guideUpdate=async(userId,updates)=>{

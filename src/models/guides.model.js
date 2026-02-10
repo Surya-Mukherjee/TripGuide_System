@@ -35,14 +35,18 @@ const guidesSchema= new Schema(
             required:true
         },
         isActive:{
-            type:boolean,
+            type:Boolean,
             default:true
         },
-        ratings:{
+        avgRating:{
+            type:Number,
+            default:0
+        },
+        totalRating:{
             type:Number,
             default:0
         }
     },
-    {timeStamps:true})
+    {timestamps:true})
 
 export const Guide=mongoose.model("Guide",guidesSchema)
