@@ -59,26 +59,27 @@ const registerUser= asyncHandler(async(req,res)=>{
               password,
               role
            })
-    
-          
-    //      if(role==='guide'){
-    //        try {
-    //          const { bio ,pricePerHour,availableDays,city,experiencedYrs}=req.body;
-    //          if (!pricePerHour || !city || !experiencedYrs) {
-    //              throw new apiError(400, "Required guide fields missing");
-    //  }
-    //          const guide= await Guide.create({
-    //              pricePerHour,
-    //              bio:bio?.trim().toLowerCase(),
-    //              availableDays,
-    //              city,
-    //              experiencedYrs
-    //          })
-    //        } catch (error) {
-    //            throw new apiError(500,"Guide not created")
-    //        }
            
-        //  }
+            let userId=user._id;
+         if(role==='guide'){
+             console.log(role)
+           
+             const { bio ,pricePerHour,availableDays,city,experiencedYrs}=req.body;
+             if (!pricePerHour || !city || !experiencedYrs) {
+                console.log("hi")
+                 throw new apiError(400, "Required guide fields missing");
+     }
+             const guide= await Guide.create({
+                userId:userId,
+                 pricePerHour,
+                 bio,
+                 availableDays,
+                 city,
+                 experiencedYrs
+             })
+          
+           
+         }
      const userStatus= await User.findById(user._id).select("-password -refreshToken")
          console.log("hi2")
    
