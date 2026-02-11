@@ -5,13 +5,14 @@ import { Guide } from "../models/guides.model.js";
 import {User} from "../models/user.model.js"
 import { Review } from "../models/review.model.js";
 import { upploadToCloudinary } from "../utilities/cloudinary.js";
-import { updateById } from "../utilities/updation.js";
+import { guideUpdate, updateById } from "../utilities/updation.js";
 
 
 
 //gettin guide profile
 const getGuideProfile= asyncHandler(async(req,res)=>{
     const guide= await Guide.findOne({userId:req.user._id}).populate("userId","userName profilePic email")
+
 
     if(!guide){
         throw new apiError(404,"profile not found")
@@ -29,7 +30,7 @@ const getGuideProfile= asyncHandler(async(req,res)=>{
 //updating guide profile
 const updateGuideProfile=asyncHandler(async(req,res)=>{
 
-
+    const guideId= req.params._id;
     const userId= req.user._id;
 
 
@@ -39,7 +40,7 @@ const updateGuideProfile=asyncHandler(async(req,res)=>{
     }
 
     const {userName,email,bio,pricePerHour,city}=req.body
-
+        console.log(bio)
     let url;
 
     const profilepicpath= req.file?.path
@@ -67,7 +68,7 @@ const updateGuideProfile=asyncHandler(async(req,res)=>{
 
 
         userUpdate=await updateById(userId,updatesAccount)
-
+         console.log(userUpdate)
         if(!userUpdate){
 
             throw new apiError(500,"user account not updated")
@@ -93,13 +94,13 @@ const updateGuideProfile=asyncHandler(async(req,res)=>{
             updateGuideDetails.city=city.trim()
 
         }
-
-    let updateGuideAccounts=null
+   console.log(updateGuideDetails)
+    let updateGuideAccounts;
 
     if(Object.keys(updateGuideDetails).length>0){
-
-         updateGuideAccounts=await updateGuide(req.user._id,updateGuideDetails)
-
+         const userId= req.user._id
+         updateGuideAccounts=await guideUpdate(guideId,updateGuideDetails)
+         console.log(updateGuideAccounts)
         if(!updateGuideAccounts){
 
             throw new apiError(500,"profile is not updated. try again!")
@@ -146,8 +147,12 @@ const listGuides= asyncHandler(async(req,res)=>{
     )
 })
 const getPublicGuideGuide =asyncHandler(async(req,res)=>{
-    const guide= await Guide.findById(req.params.id).select("userId ratings experiencedYrs availableDays bio pricePerHour city").populate("userId","userName  profilePic ")
-    
+    const guide= await Guide.findById(req.params.id).select("userId ratings experiencedYrs availableDays bio pricePerHour city avgRating totalRating").populate("userId","userName  profilePic ")
+       
+    const review=await Review.find({guideId:guide._id}).populate("userId","userName profilePic")
+    if(!review){
+        throw new apiError(404,"review not present ")
+    }
     if(!guide){
         throw new apiError(500,"Cannot display guide profile")
     }
@@ -155,7 +160,7 @@ const getPublicGuideGuide =asyncHandler(async(req,res)=>{
     return res
     .status(200)
     .json(
-        new apiResponse(200,{guide:guide},"profile fetched successfully")
+        new apiResponse(200,{guide:guide,review},"profile fetched successfully")
     )
 })
 export { getGuideProfile, getPublicGuideGuide,listGuides,updateGuideProfile}

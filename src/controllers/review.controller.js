@@ -4,30 +4,41 @@ import { apiResponse } from "../utilities/apiResponse.js";
 import { User } from "../models/user.model.js";
 import { Guide } from "../models/guides.model.js";
 import { Review } from "../models/review.model.js";
+import mongoose from "mongoose";
 
 const addReview= asyncHandler(async(req,res)=>{
-    const guideId= req.params;
+    const guideId= req.params.guideId;
+    console.log("hello",guideId)
     if(!guideId){
-        throw new apiError(500,"guide not found")
+        throw new apiError(404,"guide not found")
     }
-
+   
     const {rating,comment}=req.body
-
+  
     const userId=req.user._id;
+    const userName=req.user.userName
     
      const review = await Review.create({
          guideId,
          userId,
+         userName,
          comment,
          rating
      })
      await updateGuideStats(guideId)
-     return res.json
+     return res.json(
+        new apiResponse(
+            200,{},"review added successfully"
+        )
+     )
 })
 
  async function updateGuideStats(guideId){
-  const stats= await Review.aggregrate([
-    {$match:{guideId}},
+  const stats= await Review.aggregate([
+    {$match:{
+        guideId:new mongoose.Types.ObjectId(guideId)
+    }
+    },
     {$group:{
         _id:"$guideId",
         totalRating:{$sum:1},
@@ -35,9 +46,10 @@ const addReview= asyncHandler(async(req,res)=>{
     }}
   ])
 
+  console.log(stats)
   await Guide.findByIdAndUpdate(
     guideId,{
-        totalRating:stats[0]?.avgRating||0,
+        totalRating:stats[0]?.totalRating||0,
         avgRating:stats[0]?.avgRating||0
     }
   )
