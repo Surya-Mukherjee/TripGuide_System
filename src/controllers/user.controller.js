@@ -34,7 +34,7 @@ const registerUser= asyncHandler(async(req,res)=>{
 });
          const profilePicpath=req.file?.path
      if(registereduser){
-        fs.unlinkSync(profilePicpath)
+        fs.unlinkSync(profilePicpath)   
         
         throw new apiError(409,"user with same credentials already exists")
      }

@@ -121,16 +121,14 @@ const updateGuideProfile=asyncHandler(async(req,res)=>{
 
 
 const listGuides= asyncHandler(async(req,res)=>{
-    const{city, name,maxexpYrs,minexpYrs}=req.query;
+    const{city, maxexpYrs,minexpYrs}=req.query;
 
     const filter={}
     
     if(city){
         filter.city={$regex:city,$options:'i'}
     }
-    if(name){
-        filter.name={$regex:name,$options:'i'}
-    }
+   
     if(minexpYrs){
         filter.experiencedYrs.$gte=Number(minexpYrs)
     }
