@@ -2,7 +2,7 @@ import { User } from '../models/user.model.js'
 import { asyncHandler } from '../utilities/asyncHandler.js'
 import { apiError } from '../utilities/apiError.js'
 import { apiResponse } from '../utilities/apiResponse.js'
-import { upploadToCloudinary } from '../utilities/cloudinary.js'
+import { deleteFromCloudinary, upploadToCloudinary } from '../utilities/cloudinary.js'
 import { updateById } from '../utilities/updation.js'
 import { Review } from '../models/review.model.js'
 import { Guide } from '../models/guides.model.js'
@@ -55,13 +55,14 @@ const registerUser= asyncHandler(async(req,res)=>{
            const user = await User.create({
               userName,
               email,
-              profilePic:profilePicUrl,
+              profilePic:profilePicUrl.url,
+              publicid:profilePicUrl.public_id,
               password,
               role
            })
            
             let userId=user._id;
-         if(role==='guide'){
+             if(role==='guide'){
              console.log(role)
            
              const { bio ,pricePerHour,availableDays,city,experiencedYrs}=req.body;
@@ -89,9 +90,17 @@ const registerUser= asyncHandler(async(req,res)=>{
      )
 })
 
+
+
+
+
 //login setup
 
+
+
+
 const login=asyncHandler(async (req,res)=>{
+    console.log(req.body)
     const{userName,email,password}= req.body;
     if(!userName && !email){
         throw new apiError(400,"UserName or email is required");
@@ -181,11 +190,13 @@ const updateProfile=asyncHandler(async(req,res)=>{
     let url;
     if(profilePicUpdatePath){
         const  profilePicUpdatedURL=await upploadToCloudinary(profilePicUpdatePath);
+       
          url= profilePicUpdatedURL
     }
 
     const updateFields={
-        userName:userName
+        userName:userName,
+        publicid:profilePicUpdatedURL.public_id
 
     }
     if(email){
@@ -237,21 +248,31 @@ const passwordUpdate=asyncHandler(async(req,res)=>{
 //delete User
 const deleteUser= asyncHandler(async(req,res)=>{
     const {_id}=req.user;
-    const {deleteUserValidity}=req.body;
+    const {deleteUserValidity}=req.body; // to process choice of user 
     if(deleteUserValidity=='false'){
         return res.json(
             new apiResponse(200,{},"Deleting cancelled")
         )
     }
+    const user=User.findById(_id);
+    if(!user){
+         throw new apiError(404,"user not found")
+    }
+     const result=await deleteFromCloudinary(user.publicid)
+    
+     if(result.result!=="ok"){
+        throw new apiError("Deletion failed! try again later")
+     }
     const user= await User.findByIdAndDelete(_id)
     if(!user){
         throw new apiError(404,"User not found")
     }
+   
 
     await Review.updateMany(
         {userId:_id},
         {$set:{
-            userId:null,
+            
             userName:"deleted User",
             isAnonymous:true
         }}

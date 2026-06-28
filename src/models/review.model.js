@@ -22,14 +22,7 @@ const reviewSchema=new Schema({
         type:Number,
         default:0
     },
-    totalRating:{
-        type:Number,
-        default:0
-    },
-    avgRating:{
-        type:Number,
-        default:0
-    },
+    
     comment:{
         type:String,
         trim:true
@@ -37,8 +30,9 @@ const reviewSchema=new Schema({
 },{timestamps:true})
 
 reviewSchema.index({guideId:1,userId:1},
-    {unique:true,
-           partialFilterExpression: { userId: { $type: "objectId" } }
+    {
+        unique:true
+           
     }
 )
 

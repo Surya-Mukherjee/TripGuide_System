@@ -161,4 +161,8 @@ const getPublicGuideGuide =asyncHandler(async(req,res)=>{
         new apiResponse(200,{guide:guide,review},"profile fetched successfully")
     )
 })
+
+const deleteGuide= asyncHandler(async(req,res)=>{
+    console.log(req.user)
+})
 export { getGuideProfile, getPublicGuideGuide,listGuides,updateGuideProfile}

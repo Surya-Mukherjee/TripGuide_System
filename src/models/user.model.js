@@ -19,6 +19,7 @@ const userSchema= new Schema(
             
             required:true
         },
+        publicid:String,
         password:{
             type:String,
             required:true

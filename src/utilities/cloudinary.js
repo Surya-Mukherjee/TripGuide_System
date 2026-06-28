@@ -26,7 +26,10 @@ const upploadToCloudinary= async(localpath)=>
         console.log("hi")
         fs.unlinkSync(localpath)  
         console.log("hi")
-        return result.url
+        return {
+           url: result.url,
+           public_id:result.public_id
+        }
     }catch(err){
         console.log("File upload failed!");
         console.log(err);
@@ -34,5 +37,8 @@ const upploadToCloudinary= async(localpath)=>
         console.log("File deleted")
     }
 }
+const deleteFromCloudinary=async(public_id)=>{
+    return  await cloudinary.uploader.destroy(public_id);
+}
 
-export  {upploadToCloudinary}
+export  {upploadToCloudinary,deleteFromCloudinary}

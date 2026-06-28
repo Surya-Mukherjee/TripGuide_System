@@ -45,7 +45,7 @@ const addReview= asyncHandler(async(req,res)=>{
          comment,
          rating
      })
-     await updateGuideRatings(guideId)
+     await updateGuideRating(guideId)
      return res.json(
         new apiResponse(
             200,{},"review added successfully"
