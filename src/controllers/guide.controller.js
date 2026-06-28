@@ -6,6 +6,7 @@ import {User} from "../models/user.model.js"
 import { Review } from "../models/review.model.js";
 import { upploadToCloudinary } from "../utilities/cloudinary.js";
 import { guideUpdate, updateById } from "../utilities/updation.js";
+import { deletion } from "../utilities/deletion.js";
 
 
 
@@ -163,6 +164,25 @@ const getPublicGuideGuide =asyncHandler(async(req,res)=>{
 })
 
 const deleteGuide= asyncHandler(async(req,res)=>{
-    console.log(req.user)
+     const userId=req.user._id;
+     console.log(userId)
+     const guide= await Guide.findOneAndDelete({userId:userId})
+     console.log(guide)
+     const result= await deletion(userId);
+     if(!result){
+        throw new apiError(404,"user not found")
+     }
+     const options={
+        httpOnly:true,
+        secure:true,
+        samesite:true
+     }
+      return res
+         .status(200)
+         .clearCookie("accessToken",options)
+         .clearCookie("refreshToken",options)
+         .json(
+             new apiResponse(200,{},"User deleted successfully")
+         )
 })
-export { getGuideProfile, getPublicGuideGuide,listGuides,updateGuideProfile}
+export { getGuideProfile, getPublicGuideGuide,listGuides,updateGuideProfile,deleteGuide}

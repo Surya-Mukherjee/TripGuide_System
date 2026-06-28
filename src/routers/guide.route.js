@@ -1,14 +1,15 @@
 import { Router } from "express";
-import { requiredGuide } from "../middleware/allowed.middleware.js";
+import { requiredGuide, requireUser } from "../middleware/allowed.middleware.js";
 import { verifyjwt } from "../middleware/auth.middleware.js";
 import { upload } from "../middleware/multer.middleware.js";
 import reviewRoute from "./reviews.route.js";
-import { getGuideProfile, getPublicGuideGuide, listGuides, updateGuideProfile } from "../controllers/guide.controller.js";
+import { deleteGuide, getGuideProfile, getPublicGuideGuide, listGuides, updateGuideProfile } from "../controllers/guide.controller.js";
 import { reqbody } from "../middleware/bodycheck.middleware.js";
 const router =Router();
 
 router.route("/me").get(verifyjwt,requiredGuide,getGuideProfile ) //private
 router.route("/me").patch(  upload.single("profile-pic"),reqbody,verifyjwt,requiredGuide,updateGuideProfile)//private
+router.route("/delete").delete(verifyjwt,requiredGuide,deleteGuide)
 router.use("/reviews",reviewRoute)
 
 router.route("/").get(listGuides); //public

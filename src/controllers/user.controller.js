@@ -7,6 +7,7 @@ import { updateById } from '../utilities/updation.js'
 import { Review } from '../models/review.model.js'
 import { Guide } from '../models/guides.model.js'
 import fs from 'fs'
+import { deletion } from '../utilities/deletion.js'
 const refreshAndAccessTokenGenerator=async(user_id)=>{
     const user= await User.findById(user_id);
     const accessToken=user.accessTokenGenerator();
@@ -245,29 +246,14 @@ const passwordUpdate=asyncHandler(async(req,res)=>{
     new apiResponse(200,{},"password updated successfully")
    )
 })
-//delete User
+//delete User[for tourist]
 const deleteUser= asyncHandler(async(req,res)=>{
     const {_id}=req.user;
-    const {deleteUserValidity}=req.body; // to process choice of user 
-    if(deleteUserValidity=='false'){
-        return res.json(
-            new apiResponse(200,{},"Deleting cancelled")
-        )
-    }
-    const user=User.findById(_id);
-    if(!user){
-         throw new apiError(404,"user not found")
-    }
-     const result=await deleteFromCloudinary(user.publicid)
-    
-     if(result.result!=="ok"){
-        throw new apiError("Deletion failed! try again later")
-     }
-    const user= await User.findByIdAndDelete(_id)
-    if(!user){
-        throw new apiError(404,"User not found")
-    }
    
+    const result= await deletion(_id)
+   if(result==null){
+    throw new apiError(404,"user not found ")
+   }
 
     await Review.updateMany(
         {userId:_id},
@@ -290,6 +276,8 @@ const deleteUser= asyncHandler(async(req,res)=>{
         new apiResponse(200,{},"User deleted successfully")
     )
 })
+
+
 //booking history
 
 
