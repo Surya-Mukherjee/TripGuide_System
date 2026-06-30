@@ -2,9 +2,17 @@ import mongoose,{Schema} from 'mongoose'
 
 
 const bookingSchema=new Schema({
+     guideId:{
+        type:Schema.Types.ObjectId,
+        ref:"Guide"
+    },
+    userId:{
+        type:Schema.Types.ObjectId,
+        ref:"User"
+    },
     status:{
         type:String,
-        enum:["PENDING","CONFIRMED","BOOKED","CANCELLED"],
+        enum:["PENDING","BOOKED","COMPLETED","CANCELLED"],
         required:true
     },
     bookingPrice:{
@@ -17,22 +25,12 @@ const bookingSchema=new Schema({
         default:"PENDING",
         required:true
     },
-    startAt:{
+  tourDate:{
         type:Date,
         required:true
     },
-    duration:{
-        type:Number,
-        required:true
-    },
-    guideId:{
-        type:Schema.Types.ObjectId,
-        ref:"Guide"
-    },
-    userId:{
-        type:Schema.Types.ObjectId,
-        ref:"User"
-    }
+    noOfPeople:Number,
+   
 
 },{timestamps:true})
 

@@ -66,7 +66,7 @@ const registerUser= asyncHandler(async(req,res)=>{
              if(role==='guide'){
              console.log(role)
            
-             const { bio ,pricePerHour,availableDays,city,experiencedYrs}=req.body;
+             const { bio ,pricePerHour,city,experiencedYrs}=req.body;
              if (!pricePerHour || !city || !experiencedYrs) {
                 console.log("hi")
                  throw new apiError(400, "Required guide fields missing");
@@ -75,7 +75,7 @@ const registerUser= asyncHandler(async(req,res)=>{
                 userId:userId,
                  pricePerHour,
                  bio,
-                 availableDays,
+                 
                  city,
                  experiencedYrs
              })

@@ -18,15 +18,14 @@ const guidesSchema= new Schema(
             lowercase:true,
             trim:true
         },
-       availableDays: {
-             type: [String],
-             required: true,
-              validate: {
-                        validator: v => v.length,
-                         message: "At least one available day is required"
-                 }
-                },
-
+        blockedDates:{
+            type:[Date],
+            default:[]
+        },
+        maxsizeofPeople:{
+            type:Number
+            
+        },
         city:{
             type:String,
             required:true
