@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import connectDb from './db/db.js';
 import app from './app.js';
+import './cron/BookingCron.js'
 dotenv.config({
   path: "./env"
 });

@@ -21,6 +21,9 @@ app.use(cookieParser());
 
 import userRouter from './routers/user.route.js'
 import guideRouter from './routers/guide.route.js'
+import bookingRouter from  './routers/Booking.route.js'
+
 app.use('/api/v1/users',userRouter)
 app.use('/api/v1/guides',guideRouter)
+app.use('/api/v1/Booking',bookingRouter)
 export default app

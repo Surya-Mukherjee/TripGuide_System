@@ -278,8 +278,4 @@ const deleteUser= asyncHandler(async(req,res)=>{
 })
 
 
-//booking history
-
-
-
 export { registerUser,login,logout,getProfile,updateProfile,passwordUpdate,deleteUser}
