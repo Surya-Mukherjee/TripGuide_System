@@ -50,9 +50,6 @@ const registerUser= asyncHandler(async(req,res)=>{
      if(!profilePicUrl){
         throw new apiError(504,"Internal server error")
      }
-    
-     
-        
            const user = await User.create({
               userName,
               email,
@@ -61,33 +58,12 @@ const registerUser= asyncHandler(async(req,res)=>{
               password,
               role
            })
-           
-            let userId=user._id;
-             if(role==='guide'){
-             console.log(role)
-           
-             const { bio ,pricePerHour,city,experiencedYrs}=req.body;
-             if (!pricePerHour || !city || !experiencedYrs) {
-                console.log("hi")
-                 throw new apiError(400, "Required guide fields missing");
-     }
-             const guide= await Guide.create({
-                userId:userId,
-                 pricePerHour,
-                 bio,
-                 
-                 city,
-                 experiencedYrs
-             })
-          
-           
-         }
-     const userStatus= await User.findById(user._id).select("-password -refreshToken")
+         const userStatus= await User.findById(user._id).select("-password -refreshToken")
          console.log("hi2")
    
 
-     return res.status(201).json( 
-        new apiResponse(200,userStatus,"User registered successfully")
+         return res.status(201).json( 
+         new apiResponse(200,userStatus,"User registered successfully")
      )
 })
 

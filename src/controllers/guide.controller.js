@@ -8,7 +8,30 @@ import { upploadToCloudinary } from "../utilities/cloudinary.js";
 import { guideUpdate, updateById } from "../utilities/updation.js";
 import { deletion } from "../utilities/deletion.js";
 
+//complete guideProfile
+const completeGuideProfile=asyncHandler(async(req,res)=>{
+    const userId=req.user._id;
+    
+    const {bio,city,pricePerHour,maxsizeofPeople,experiencedYrs}=req.body
+    if(!city || !pricePerHour ||!maxsizeofPeople ||!experiencedYrs){
+        throw new apiError(400,"required fields missing")
+    }
+    const guide = await Guide.create({
+        userId:userId,
+        bio,
+        city,
+        pricePerHour,
+        maxsizeofPeople,
+        experiencedYrs
+    })
+    if(!guide){
+        throw new apiError(500,"failed to complete profile.Try again later!")
 
+    }
+    return res.json(
+        new apiResponse(201,guide,"Profile completed successfully")
+    )
+})
 
 //gettin guide profile
 const getGuideProfile= asyncHandler(async(req,res)=>{
@@ -185,4 +208,4 @@ const deleteGuide= asyncHandler(async(req,res)=>{
              new apiResponse(200,{},"User deleted successfully")
          )
 })
-export { getGuideProfile, getPublicGuideGuide,listGuides,updateGuideProfile,deleteGuide}
+export { getGuideProfile, completeGuideProfile,getPublicGuideGuide,listGuides,updateGuideProfile,deleteGuide}
