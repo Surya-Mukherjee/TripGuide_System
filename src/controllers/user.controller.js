@@ -58,12 +58,21 @@ const registerUser= asyncHandler(async(req,res)=>{
               password,
               role
            })
-         const userStatus= await User.findById(user._id).select("-password -refreshToken")
-         console.log("hi2")
-   
+         const {accessToken,refreshToken}=await refreshAndAccessTokenGenerator(user._id)
+         const loggedin=await User.findById(user._id)
+         if(!loggedin){
+            throw new apiError(500,"cant log in. Try manually logging in ")
+         }
+         const options={
+            httpOnly:true,
+            secure:true
+         }
 
-         return res.status(201).json( 
-         new apiResponse(200,userStatus,"User registered successfully")
+         return res.status(201)
+         .cookie("accessToken",accessToken,options)
+         .cookie("refreshToken",refreshToken,options)
+         .json( 
+         new apiResponse(200,user,"User registered successfully")
      )
 })
 

@@ -3,7 +3,7 @@ import { apiError } from "../utilities/apiError.js";
 import { apiResponse } from "../utilities/apiResponse.js";
 import { User } from "../models/user.model.js";
 import { Guide } from "../models/guides.model.js";
-import { Booking, Booking } from "../models/bookings.model.js";
+import { Booking } from "../models/bookings.model.js";
 
 //booking requests
 const bookingRequest=asyncHandler(async(req,res)=>{
@@ -18,11 +18,11 @@ const bookingRequest=asyncHandler(async(req,res)=>{
 
     //calculate no of total bookings for the  current guide
     const TotalNumberOfPeople= bookings.reduce(
-        (sum,Booking)=>sum+Booking.noOfPeople,
+        (sum,Booking)=>sum+Booking.noofPeople,
         0
     );
    //check whether noof people exceeds the max no of  people  a travel guide can handle
-    if(TotalNumberOfPeople+noOfPeople>Guide.maxsizeofPeople){
+    if(TotalNumberOfPeople+numberOfPeople>Guide.maxsizeofPeople){
        throw new apiError(400,"Maximum number of people are reached")
      }
      const guide=await Guide.findById(guideId);
@@ -35,14 +35,15 @@ const bookingRequest=asyncHandler(async(req,res)=>{
         throw new apiError(400,"tourDate is required")
     }
     const  selectedDate= new Date(tourDate)
-    if(isNaN(validTourDateCheck.getTime())){
+    if(isNaN(selectedDate.getTime())){
         throw new apiError(400,"Invalid tour Date")
     }
     const today=new Date();
-    if(selectedDate<today){
+    console.log(today)
+    if(selectedDate.setHours(0,0,0,0)<today.setHours(0,0,0,0)){
         throw new apiError(400,"selected date cannot be in past")
     }
-     const guide=await Guide.findById(guideId);
+     
     if(guide.blockedDates.includes(tourDate)){
         throw new apiError(409,"Guide is not available for  the date specified")
     }
@@ -58,7 +59,7 @@ const bookingRequest=asyncHandler(async(req,res)=>{
         }
     )
 
-    if(!booking){
+    if(!bookingReq){
         throw new apiError(500,"Booking request failed")
     }
     return res.status(201).json(
@@ -198,8 +199,9 @@ const cancelBooking=asyncHandler(async(req,res)=>{
 
 //Accepting booking request
 const AcceptBooking=asyncHandler(async(req,res)=>{
-    const {BookingId}=req.params;
-    const bookings=await Booking.findById(BookingId)
+    const {bookingid}=req.params;
+
+    const bookings=await Booking.findById(bookingid)
     if(!bookings){
         throw new apiError(404,"Booking does not exists")
     }
@@ -218,6 +220,9 @@ const RejectBooking=asyncHandler(async(req,res)=>{
     const bookings=await Booking.findById(BookingId)
     if(!bookings){
         throw new apiError(404,"Booking does not exists")
+    }
+    if(bookings.status==="BOOKED"){
+        throw new apiError(409,"cant reject already accepted booking")
     }
     bookings.status="REJECTED",
     await bookings.save()

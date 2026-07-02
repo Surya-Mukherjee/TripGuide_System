@@ -64,6 +64,7 @@ const updateGuideProfile=asyncHandler(async(req,res)=>{
     }
 
     const {userName,email,bio,pricePerHour,city}=req.body
+    const [blockDates]=req.body
         console.log(bio)
     let url;
 
@@ -87,7 +88,8 @@ const updateGuideProfile=asyncHandler(async(req,res)=>{
      if (userName) updatesAccount.userName = userName.trim();
 
      if (email) updatesAccount.email = email.trim();
-         
+          if (blockedDates.length !=0) updatesAccount.blockedDates = blockDate;
+    
      if(Object.keys(updatesAccount).length>0){
 
 

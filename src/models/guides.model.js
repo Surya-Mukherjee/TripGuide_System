@@ -23,8 +23,8 @@ const guidesSchema= new Schema(
             default:[]
         },
         maxsizeofPeople:{
-            type:Number
-            
+            type:Number,
+            required:true
         },
         city:{
             type:String,

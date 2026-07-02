@@ -1,8 +1,6 @@
 import cron from  "node-cron"
 import { Booking } from "../models/bookings.model.js"
 
-import cron from "node-cron";
-import Booking from "../models/booking.model.js";
 
 cron.schedule("0 * * * *", async () => {
     try {
