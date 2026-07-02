@@ -8,6 +8,12 @@ import { Review } from '../models/review.model.js'
 import { Guide } from '../models/guides.model.js'
 import fs from 'fs'
 import { deletion } from '../utilities/deletion.js'
+import {z} from 'zod'
+const userScheme= z.object({
+    userName:z.string(),
+    email:z.email(),
+    password:z.string().min(8,"password must contain atleast 8 characters")
+})
 const refreshAndAccessTokenGenerator=async(user_id)=>{
     const user= await User.findById(user_id);
     const accessToken=user.accessTokenGenerator();
@@ -263,4 +269,4 @@ const deleteUser= asyncHandler(async(req,res)=>{
 })
 
 
-export { registerUser,login,logout,getProfile,updateProfile,passwordUpdate,deleteUser}
+export { registerUser,login,logout,getProfile,updateProfile,passwordUpdate,deleteUser,userScheme}

@@ -4,7 +4,13 @@ import { apiResponse } from "../utilities/apiResponse.js";
 import { User } from "../models/user.model.js";
 import { Guide } from "../models/guides.model.js";
 import { Booking } from "../models/bookings.model.js";
-
+import {z} from "zod"
+//zod validation schema
+const bookingScheme=z.object({
+    guideId:z.min(1),
+    tourDate:z.string().Date(),
+    numberOfPeople:z.number(),
+})
 //booking requests
 const bookingRequest=asyncHandler(async(req,res)=>{
     const {guideId,tourDate,numberOfPeople,bookingPrice}=req.body;
@@ -216,8 +222,8 @@ const AcceptBooking=asyncHandler(async(req,res)=>{
 //Rejecting booking request
 
 const RejectBooking=asyncHandler(async(req,res)=>{
-    const {BookingId}=req.params;
-    const bookings=await Booking.findById(BookingId)
+    const {bookingid}=req.params;
+    const bookings=await Booking.findById(bookingid)
     if(!bookings){
         throw new apiError(404,"Booking does not exists")
     }
@@ -231,4 +237,4 @@ const RejectBooking=asyncHandler(async(req,res)=>{
     )
 })
 
-export {bookingRequest,RejectBooking,AcceptBooking,getBookingRequestTourist,getBookingRequestGuide,getBookedBookingGuide,getBookingHistoryTourist,getBookedRequestTourist,cancelBooking}
+export {bookingRequest,RejectBooking,AcceptBooking,getBookingRequestTourist,getBookingRequestGuide,getBookedBookingGuide,getBookingHistoryTourist,getBookedRequestTourist,cancelBooking,bookingScheme}

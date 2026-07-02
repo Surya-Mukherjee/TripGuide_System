@@ -7,13 +7,22 @@ import { Review } from "../models/review.model.js";
 import { upploadToCloudinary } from "../utilities/cloudinary.js";
 import { guideUpdate, updateById } from "../utilities/updation.js";
 import { deletion } from "../utilities/deletion.js";
-
+import {minLength, z} from "zod"
+//validate guide
+const guideScheme=z.object({
+    city:z.string(),
+    pricePerHour:z.number().positive(),
+    pricePerHour:z.number().positive(),
+    experiencedYrs:z.number().positive(),
+    minHour:z.number().positive(),
+    maxHour:z.number().positive()
+})
 //complete guideProfile
 const completeGuideProfile=asyncHandler(async(req,res)=>{
     const userId=req.user._id;
     
-    const {bio,city,pricePerHour,maxsizeofPeople,experiencedYrs}=req.body
-    if(!city || !pricePerHour ||!maxsizeofPeople ||!experiencedYrs){
+    const {bio,city,pricePerHour,maxsizeofPeople,experiencedYrs,minHour,maxHour}=req.body
+    if(!city || !pricePerHour ||!maxsizeofPeople ||!experiencedYrs|| minHour||maxHour){
         throw new apiError(400,"required fields missing")
     }
     const guide = await Guide.create({
@@ -210,4 +219,4 @@ const deleteGuide= asyncHandler(async(req,res)=>{
              new apiResponse(200,{},"User deleted successfully")
          )
 })
-export { getGuideProfile, completeGuideProfile,getPublicGuideGuide,listGuides,updateGuideProfile,deleteGuide}
+export { getGuideProfile, completeGuideProfile,getPublicGuideGuide,listGuides,updateGuideProfile,deleteGuide,guideScheme}
