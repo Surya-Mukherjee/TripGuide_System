@@ -1,5 +1,5 @@
 import { ZodError } from "zod";
-import { apiResponse } from "../utilities/apiResponse";
+import { apiResponse } from "../utilities/apiResponse.js";
 
 const validate=(scheme)=>{
     return (req,res,next)=>{

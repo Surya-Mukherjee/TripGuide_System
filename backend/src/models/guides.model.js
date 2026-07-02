@@ -18,8 +18,8 @@ const guidesSchema= new Schema(
             lowercase:true,
             trim:true
         },
-        minHour:number,
-        maxHour:number,
+        minHour:Number,
+        maxHour:Number,
         blockedDates:{
             type:[Date],
             default:[]

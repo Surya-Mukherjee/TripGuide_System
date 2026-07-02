@@ -7,8 +7,8 @@ import { Booking } from "../models/bookings.model.js";
 import {z} from "zod"
 //zod validation schema
 const bookingScheme=z.object({
-    guideId:z.min(1),
-    tourDate:z.string().Date(),
+    guideId:z.string().min(1),
+    tourDate:z.string().date(),
     numberOfPeople:z.number(),
 })
 //booking requests
