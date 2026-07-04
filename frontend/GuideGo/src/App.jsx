@@ -1,14 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import React, { useEffect, useState } from 'react'
+import Loader from './component/loader'
 
-function App() {
- 
+const App = () => {
+    const [isLoading,setLoading]=useState(true);
+    const [isAnimating,setAnimating]=useState(false);
+    const [isVisible,setVisible]=useState(true)
+    useEffect(()=>{
+        const timeinterval=setTimeout(()=>{
+            setAnimating(true)
+            const timeinterval2=setTimeout(()=>{
+                setLoading(false)
+            },2000)
+        },2000);
+        return(()=>{
+            clearTimeout(timeinterval);
+        })
+    },[])
   return (
-    <>
-    </>
+    <div>
+
+     <Loader startAnimation={isAnimating}/>
+      
+    </div>
   )
 }
 
