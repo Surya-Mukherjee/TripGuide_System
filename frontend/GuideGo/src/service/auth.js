@@ -1,6 +1,16 @@
 import api from "./api.js";
-const login=(data)=>{
-    return axios.post('/users/login',data)
+export const loginApi=(credentials)=>{
+    return api.post('/users/login',credentials)
 }
 
-export default login
+export const logoutApi=()=>{
+    return api.post('/users/logout')
+}
+
+export const registerApi=(formData)=>{
+    return api.post('/users/register',formData)
+}
+
+export const passwordUpdateApi=(password)=>{
+    return api.patch('/users/password-update',password)
+}
