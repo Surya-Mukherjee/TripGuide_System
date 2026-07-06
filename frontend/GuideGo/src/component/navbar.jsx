@@ -1,7 +1,11 @@
 import React from 'react'
 import {Link,NavLink} from "react-router-dom" 
 import {useNavigate} from 'react-router-dom'
+import { useAuth } from '../../authProvider/authContext'
+import Spinner from './smallSpinner/Spinner'
+
 const Navbar = () => {
+  const{user,loading}=useAuth()
     const navigate=useNavigate();
     const handleClickGuide=()=>{
     navigate()
@@ -21,7 +25,19 @@ const Navbar = () => {
       Guides
       </NavLink>
       </div>
-      .authentication x
+     if(loading){
+      <Spinner/>
+     }else if(user){
+      <div className='imgContainer'>
+        <img src={`$user.profile-pic`}/>
+      </div>
+     }
+     else{
+      <div className="authBtn">
+        <button id='login'>Login</button>
+        <button id='register'>Register</button>
+      </div>
+     }
     </div>
   )
 }

@@ -1,9 +1,9 @@
 import { useContext,createContext,useEffect,useState } from "react";
-import getCurrentUser from "../src/service/user.js";
+import {getCurrentUser} from "../src/service/user.js";
 import { loginApi, logoutApi, passwordUpdateApi, registerApi } from "../src/service/auth.js";
 const authContext= createContext();
 
-function AuthProvider({children}){
+export function AuthProvider({children}){
  const[user,setUser]=useState(null);
  const[loading,setLoading]=useState(true);
  async function login(credentials){
@@ -37,14 +37,14 @@ function AuthProvider({children}){
  },[])
 
  return (
-  <authContext.Provider values={{
+  <authContext.Provider value={{
     user,
     setUser,
     login,
     passwordUpdate,
     logout,
     register,
-    Loading
+    loading
   }
   }>
     {children}

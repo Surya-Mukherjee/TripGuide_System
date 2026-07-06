@@ -1,0 +1,13 @@
+.loading{
+    width:20%;
+    height:20%;
+    border-radius: 50%;
+    border-top:5px solid navy;
+    animation:Rotate 1s infinite; 
+}
+@keyframes Rotate {
+    100%{
+        rotate:360deg   
+    }
+    
+}
