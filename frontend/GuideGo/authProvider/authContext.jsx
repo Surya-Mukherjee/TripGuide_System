@@ -25,6 +25,7 @@ export function AuthProvider({children}){
  useEffect(()=>{
     const fetchUser=async()=>{
         try{
+          setLoading(true)
           const data=await getCurrentUser()
           setUser(data)
         }catch(err){

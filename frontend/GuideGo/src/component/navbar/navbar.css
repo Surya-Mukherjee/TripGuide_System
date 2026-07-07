@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+.nav{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    position:relative;
+    position:fixed;
+    height:4em;
+    width:100vw;
+    position:fixed;
+    z-index:20;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    transform:translateY(-100px);
+    transition:transform 1s ease;
+}
+.nav.animate{
+    transform:translateY(0px)
+}
+.logonav{
+ display:flex;
+ height:20px;
+ width:10%;
+ margin-left:0px;
+ position:absolute;
+ top:1em;
+left:2%;
+}
+.logonav .Guide{
+    font-size:1.5em;
+    font-weight:bolder;
+    font-family:"Potta One",serif;
+}
+.logonav .Go{
+    color:#F1846F;
+        font-size:1.5em;
+    font-weight:bolder;
+    font-family:"Potta One",serif;
+}
+.links{
+  display:flex;
+  width:30%;
+  justify-content: space-around;
+  align-items: center;
+}
+a{
+    text-decoration:none;
+    font-size:1.5em;
+    font-weight:bold;
+    font-family:"Inter",serif;
+}
+.active{
+    color:white;
+    font-weight:bold;
+    transform:scale(0.8);
+}
+.notActive{
+    color:black;
+    font-weight:bold;
+    transform:scale(1);
+}
+.authBtn{
+    height:100%;
+    width:20%;
+    position:absolute;
+    right:2%;
+    display:flex;
+    align-items:center;
+    justify-content: space-evenly;
+    
+}
+#login{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    flex-wrap:nowrap;
+    height:56%;
+    width:7rem;
+    border-radius:50px;
+    border:3px solid #F29F7E;
+    background-color:#f29f7e00;
+    color:White;
+    font-weight:bold;
+    font-size:1.5rem;
+    font-family: "Poppins",serif;
+}
+#register{
+       display:flex;
+    justify-content: center;
+    align-items:center;
+    flex-wrap:nowrap;
+      height:56%;
+    width:8rem;
+    border-radius:50px;
+    
+    background-color:#F45E00;
+    color:White;
+    font-weight:bold;
+    font-size:1.3rem;
+    border:none;
+    font-family: "Poppins";
+}

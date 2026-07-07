@@ -10,7 +10,7 @@ const Loader = ({startAnimation}) => {
     <div className="bar-container">
     
       {arr.map((_,index)=>{
-          return <div key={index} className={`bar ${startAnimation?"animate":""}`} style={{"--delay":`${index*0.15}s`}}></div>
+          return <div key={index} className={`bar ${startAnimation?"animate":""}`} style={{"--delay":`${(index*0.15).toFixed(2)}s`}}></div>
       })}
       
     </div>

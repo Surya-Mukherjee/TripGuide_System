@@ -1,9 +1,15 @@
 .loading{
-    width:20%;
-    height:20%;
-    border-radius: 50%;
-    border-top:5px solid navy;
-    animation:Rotate 1s infinite; 
+    width:2%;
+    height:2em;
+   margin-top:10px;
+   margin-left:10px;
+   margin-bottom:10px;
+   border-radius:50%;
+    border-top:5px dotted #000080;
+    border-left: 5px dotted blue;
+    border-right:5px dotted grey;
+    border-bottom: 5px dotted grey;
+   animation: Rotate 1s ease-in-out infinite;
 }
 @keyframes Rotate {
     100%{

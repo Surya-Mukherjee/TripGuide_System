@@ -6,7 +6,10 @@ import { verifyjwt } from "../middleware/auth.middleware.js";
 import { validate } from "../middleware/validation.middleware.js";
 const router= Router()
 router.route("/register").post(upload.single("profile-pic"),validate(userScheme),registerUser)
-router.route("/login").post(reqbody,validate(userScheme),login)
+router.route("/login").post(reqbody,validate(userScheme),(req,res,next)=>{
+    console.log("reached router")
+    next()
+},login)
 
 //Secured Routes
 router.route("/logout").post(verifyjwt,logout)

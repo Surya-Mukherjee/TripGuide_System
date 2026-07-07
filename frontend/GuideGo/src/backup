@@ -1,0 +1,52 @@
+[
+{
+    path:"/users",
+    children:[{
+        path:"/login",
+        component:Login
+    },
+    {
+        path:"/register",
+        component:Register
+    },
+   
+]
+},{
+    Component:NavFooterLayout,
+    children:[
+        {
+            path:"/users",
+            children:[
+                {
+                    path:"/profile",
+                    Component:Profile
+                },
+                {
+                    path:"/settings",
+                    Component:Setting
+                }
+            ]
+        },
+        {
+            path:"/guides",
+            children:[
+            {path:"/guideList",Component:GuideList},
+            {path:"/guides/:guideId",Component:GuideProfile}
+            ]
+        }
+       
+    ]
+},
+{
+    Component:ProtectedRoute,
+    children:[
+        {
+            Component:NavFooterLayout,
+            children:[
+                {path:"/guide/profile",Component:guideProfile},
+                
+            ]
+        }
+    ]
+}
+]

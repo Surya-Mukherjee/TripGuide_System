@@ -12,6 +12,7 @@ const validate=(scheme)=>{
             )
         }
     }
+    next();
 }
 }
 export {validate}
