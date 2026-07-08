@@ -219,4 +219,17 @@ const deleteGuide= asyncHandler(async(req,res)=>{
              new apiResponse(200,{},"User deleted successfully")
          )
 })
-export { getGuideProfile, completeGuideProfile,getPublicGuideGuide,listGuides,updateGuideProfile,deleteGuide,guideScheme}
+
+const getFeaturedGuides=asyncHandler(async(req,res)=>{
+     const guides = await Guide.find()
+        .populate("userId", "userName profilePic")
+        .sort({ avgRating: -1 })
+        .limit(4);
+
+    res.status(200).json({
+        success: true,
+        guides
+    });
+
+})
+export { getGuideProfile, completeGuideProfile,getPublicGuideGuide,listGuides,updateGuideProfile,deleteGuide,guideScheme,getFeaturedGuides}
