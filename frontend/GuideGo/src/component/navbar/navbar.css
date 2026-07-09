@@ -51,9 +51,11 @@ a{
     font-size:1.5em;
     font-weight:bold;
     font-family:"Inter",serif;
+    transform:scale(1);
+    transition: transform 0.1s ease
 }
 .active{
-    color:white;
+    color:rgb(194, 81, 81);
     font-weight:bold;
     transform:scale(0.8);
 }
@@ -81,8 +83,8 @@ a{
     width:7rem;
     border-radius:50px;
     border:3px solid #F29F7E;
-    background-color:#f29f7e00;
-    color:White;
+    background-color:#FFE8D9;
+    color:#F5650B;
     font-weight:bold;
     font-size:1.5rem;
     font-family: "Poppins",serif;
@@ -96,10 +98,19 @@ a{
     width:8rem;
     border-radius:50px;
     
-    background-color:#F45E00;
-    color:White;
+    background-color:#F5650B;
+    color:#fff;
     font-weight:bold;
     font-size:1.3rem;
     border:none;
     font-family: "Poppins";
+}
+
+#register:hover{
+   box-shadow:0px 0px 8px 1px rgb(223, 223, 223);
+   cursor:pointer;
+}
+#login:hover{
+   box-shadow:0px 0px 8px 3px rgb(238, 236, 234);
+   cursor:pointer;
 }

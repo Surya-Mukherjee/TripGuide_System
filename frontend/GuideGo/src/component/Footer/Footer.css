@@ -25,18 +25,27 @@
 
     position:absolute;
 
-    inset:0;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
 
     background:
-    radial-gradient(circle at 15% 20%,
-    rgba(245,101,11,.15),
-    transparent 30%),
-
-    radial-gradient(circle at 90% 85%,
-    rgba(255,190,120,.12),
-    transparent 35%);
+    radial-gradient(
+        circle at 15% 20%,
+        rgba(249, 249, 249, 0.3),
+        transparent 40%
+    ),
+    radial-gradient(
+        circle at 90% 85%,
+        rgba(204, 186, 186, 0.542),
+        transparent 45%
+    );
 
     pointer-events:none;
+
+    z-index:0;
 }
 
 .footer-content{

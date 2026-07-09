@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Loader from './component/loader'
 import { useAuth } from '../authProvider/authContext';
 import Navbar from './component/navbar/navbar';
@@ -12,12 +12,14 @@ const App = () => {
     const [isLoading,setLoading]=useState(true);
     const [isAnimating,setAnimating]=useState(false);
     const [isVisible,setVisible]=useState(false)
-    const router=createBrowserRouter([
+    const router=useMemo(()=>
+      createBrowserRouter([
   {
     path:"/",
     element:<Home isVisible={isVisible}/>
   }
-])
+],),[isVisible]
+    );
    useEffect(() => {
   document.body.style.overflow = isLoading ? "hidden" : "auto";
 
@@ -25,10 +27,11 @@ const App = () => {
     document.body.style.overflow = "auto";
   };
 }, [isLoading]);
-    useEffect(()=>{
+  useEffect(()=>{
+    let timeinterval2
         const timeinterval=setTimeout(()=>{
             setAnimating(true)
-            const timeinterval2=setTimeout(()=>{
+            timeinterval2=setTimeout(()=>{
                 setLoading(false)
                 setAnimating(false)
                 setVisible(true)
@@ -36,6 +39,7 @@ const App = () => {
         },2000);
         return(()=>{
             clearTimeout(timeinterval);
+            clearTimeout(timeinterval2)
         })
     },[])
   return (
