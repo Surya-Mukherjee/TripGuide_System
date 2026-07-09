@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:wght@300;400;700&display=swap');
+
+.our-mission{
+    height: 35em;
+    background-color: hsl(45, 100%, 95%);
+  padding-left:1.5rem;
+  padding-bottom:1.5rem;
+  padding-top:1.5rem;
+  position:relative;
+    display:flex;
+    gap:2rem;
+    
+}
+.container{
+    height:50%;
+    width:60%;
+    display:flex;
+    padding:6rem;
+    position:relative;
+    left:10%;
+    top:10%;
+  background: linear-gradient(
+  180deg,
+    hsl(50, 30%, 99%),
+  hsl(45, 35%, 96%),
+  hsl(38, 40%, 92%)
+);
+}
+.text1{
+font-family:"Inria Serif",serif;
+font-size:1.5em;
+font-style: italic;
+color:#ac663b;
+}
+.text2{
+ font-family:"Inria Serif",serif;
+ font-size:2em;
+ font-weight: 600;
+
+}
+#img{
+    object-fit: cover;
+    height:100%;
+    width:100%;
+}
+.Description{
+ font-family:"Inria Serif",serif;
+ font-size:1.3em;
+ font-weight: 400;
+ font-style: italic;
+}
+.imagesection{
+    height:50%;
+    width:40%;
+    position:absolute;
+    top:25%;
+    left:40%;
+    background-color: rgb(76, 81, 81);
+   margin-left:5rem;
+    
+}
+.TextSection{
+    height:100%;
+    width:40%;
+}

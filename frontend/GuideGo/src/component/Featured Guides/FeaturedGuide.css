@@ -1,0 +1,421 @@
+/* ===========================
+   FEATURED GUIDES
+=========================== */
+
+.featured-guides{
+
+    position:relative;
+    overflow:hidden;
+
+    padding:7rem 6rem 9rem;
+
+    background:
+    linear-gradient(
+        135deg,
+        #fffaf5,
+        #fff4ea,
+        #fffaf5
+    );
+
+    isolation:isolate;
+
+}
+
+.featured-guides::before{
+
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:url("/images/topography.svg");
+
+    background-repeat:repeat;
+    background-size:1000px;
+
+    opacity:.08;
+
+    z-index:-1;
+
+}
+
+
+
+/* ===========================
+   HEADING
+=========================== */
+
+.featured-heading{
+
+    text-align:center;
+
+    margin-bottom:5rem;
+
+}
+
+.featured-heading h2{
+
+    font-size:3.4rem;
+
+    font-weight:800;
+
+    color:#222;
+
+    margin-bottom:.7rem;
+
+}
+
+.featured-heading p{
+
+    font-size:1.1rem;
+
+    color:#666;
+
+}
+
+
+
+/* ===========================
+   ROUTE
+=========================== */
+
+.route-wrapper{
+
+    position:relative;
+
+    width:100%;
+
+    height:420px;
+
+}
+
+.travel-route{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    overflow:visible;
+
+}
+
+.desktop-route{
+
+    display:block;
+
+}
+
+.mobile-route{
+
+    display:none;
+
+}
+
+.route-path{
+
+    fill:none;
+
+    stroke:#f5650b;
+
+    stroke-width:5;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+
+    stroke-dasharray:2000;
+    stroke-dashoffset:2000;
+
+}
+
+
+
+/* Draw only when section becomes active */
+
+.featured-guides.active .route-path{
+
+    animation:
+    drawPath 2.8s ease forwards;
+
+}
+
+
+
+/* ===========================
+   GUIDE
+=========================== */
+
+.featured-guide{
+
+    position:absolute;
+
+    transform:
+    translate(-50%,-50%)
+    scale(0);
+
+    opacity:0;
+
+    text-align:center;
+
+}
+
+.featured-guides.active .featured-guide{
+
+    animation:
+    popGuide .55s cubic-bezier(.22,1,.36,1) forwards;
+
+}
+
+
+
+/* ===========================
+   IMAGE
+=========================== */
+
+.guide-image{
+
+    width:110px;
+
+    height:110px;
+
+    border-radius:50%;
+
+    padding:5px;
+
+    background:#f5650b;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 12px 30px rgba(245,101,11,.25);
+
+}
+
+.guide-image img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    display:block;
+
+}
+
+
+
+/* ===========================
+   NAME
+=========================== */
+
+.featured-guide h4{
+
+    margin-top:1rem;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    color:#222;
+
+}
+
+
+
+/* ===========================
+   RATING
+=========================== */
+
+.featured-guide span{
+
+    display:block;
+
+    margin-top:.4rem;
+
+    font-size:1rem;
+
+    color:#030303;
+
+    font-weight:700;
+
+}
+
+
+
+/* ===========================
+   HOVER
+=========================== */
+
+.featured-guide:hover .guide-image{
+
+    transform:scale(1.08);
+
+    transition:.35s;
+
+}
+
+.featured-guide:hover h4{
+
+    color:#f5650b;
+
+}
+
+
+
+/* ===========================
+   ANIMATION
+=========================== */
+
+@keyframes drawPath{
+
+    to{
+
+        stroke-dashoffset:0;
+
+    }
+
+}
+
+@keyframes popGuide{
+
+    from{
+
+        opacity:0;
+
+        transform:
+        translate(-50%,-50%)
+        scale(0);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+        translate(-50%,-50%)
+        scale(1);
+
+    }
+
+}
+
+
+
+/* ===========================
+   TABLETS
+=========================== */
+
+@media (max-width:992px){
+
+    .featured-guides{
+
+        padding:6rem 2rem;
+
+    }
+
+    .featured-heading h2{
+
+        font-size:2.8rem;
+
+    }
+
+    .route-wrapper{
+
+        height:350px;
+
+    }
+
+    .guide-image{
+
+        width:90px;
+        height:90px;
+
+    }
+
+}
+
+
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media (max-width:768px){
+
+    .featured-guides{
+
+        padding:5rem 1.5rem;
+
+    }
+
+    .featured-heading{
+
+        margin-bottom:10rem;
+
+    }
+
+    .featured-heading h2{
+
+        font-size:2.2rem;
+
+    }
+
+    .featured-heading p{
+
+        font-size:1rem;
+
+    }
+
+    .route-wrapper{
+
+        height:900px;
+
+    }
+
+    .desktop-route{
+
+        display:none;
+
+    }
+
+    .mobile-route{
+
+        display:block;
+
+        width:100%;
+        height:100%;
+
+    }
+
+    .route-path{
+
+        stroke-width:4;
+
+    }
+
+    .guide-image{
+
+        width:85px;
+        height:85px;
+
+    }
+
+    .featured-guide h4{
+
+        font-size:.9rem;
+
+    }
+
+    .featured-guide span{
+
+        font-size:.95rem;
+
+    }
+
+}

@@ -1,10 +1,12 @@
 import { useContext,createContext,useEffect,useState } from "react";
 import {getCurrentUser} from "../src/service/user.js";
 import { loginApi, logoutApi, passwordUpdateApi, registerApi } from "../src/service/auth.js";
+import { getFeaturedGuides } from "../src/service/GuideService.js";
 const authContext= createContext();
 
 export function AuthProvider({children}){
  const[user,setUser]=useState(null);
+ const[guides,setGuides]=useState()
  const[loading,setLoading]=useState(true);
  async function login(credentials){
   const res= await loginApi(credentials);
@@ -27,6 +29,8 @@ export function AuthProvider({children}){
         try{
           setLoading(true)
           const data=await getCurrentUser()
+          const guide=await getFeaturedGuides();
+          setGuides(guide)
           setUser(data)
         }catch(err){
           setUser(null)
@@ -43,6 +47,7 @@ export function AuthProvider({children}){
     setUser,
     login,
     passwordUpdate,
+    guides,
     logout,
     register,
     loading
