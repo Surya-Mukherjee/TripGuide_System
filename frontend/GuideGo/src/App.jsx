@@ -7,6 +7,7 @@ import NavFooterLayout from './Layout/NavFooterLayout';
 import Hero from './component/landing/Hero';
 import Home from './Pages/Home';
 import Spinner from './component/smallSpinner/Spinner';
+import Login from './Pages/Login';
 
 const App = () => {
     const [isLoading,setLoading]=useState(true);
@@ -17,6 +18,11 @@ const App = () => {
   {
     path:"/",
     element:<Home isVisible={isVisible}/>
+  },{
+    path:"/users",
+    children:[
+      {path:"login",Component:Login}
+    ]
   }
 ],),[isVisible]
     );

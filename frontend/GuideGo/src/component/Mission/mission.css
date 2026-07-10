@@ -1,65 +1,187 @@
 @import url('https://fonts.googleapis.com/css2?family=Inria+Serif:wght@300;400;700&display=swap');
 
 .our-mission{
-    height: 35em;
-    background-color: hsl(45, 100%, 95%);
-  padding-left:1.5rem;
-  padding-bottom:1.5rem;
-  padding-top:1.5rem;
-  position:relative;
+    /* width:100%; */
+    background-color:hsla(30, 78%, 83%, 0.697);
+       position: relative;
+       backdrop-filter: blur(16px);
+    padding:4rem 4%;
     display:flex;
-    gap:2rem;
-    
+    justify-content:center;
+   
+}
+
+.our-mission::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -80px;
+
+    width: 100%;
+    height: 80px;
+
+   background-color:hsl(45,100%,95%);
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 0%,
+        0 100%
+    );
+    z-index:2
 }
 .container{
-    height:50%;
-    width:60%;
+    width:100%;
+    max-width:1200px;
+    min-height:450px;
+   
     display:flex;
-    padding:6rem;
-    position:relative;
-    left:10%;
-    top:10%;
-  background: linear-gradient(
-  180deg,
-    hsl(50, 30%, 99%),
-  hsl(45, 35%, 96%),
-  hsl(38, 40%, 92%)
-);
+    align-items:center;
+    justify-content:space-between;
+    gap:4rem;
+
+    padding:4rem;
+
+    background:linear-gradient(
+        180deg,
+        hsl(50,30%,99%),
+        hsl(45,35%,96%),
+        hsl(38,40%,92%)
+    );
+
+    border-radius:20px;
 }
+
+.TextSection{
+    flex:1;
+}
+
+.imagesection{
+    flex:1;
+    height:420px;
+    overflow:hidden;
+    border-radius:16px;
+}
+
+#img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
 .text1{
-font-family:"Inria Serif",serif;
-font-size:1.5em;
-font-style: italic;
-color:#ac663b;
+    font-family:"Inria Serif",serif;
+    font-size:1.5rem;
+    font-style:italic;
+    color:#ac663b;
 }
+
 .text2{
- font-family:"Inria Serif",serif;
- font-size:2em;
- font-weight: 600;
+    font-family:"Inria Serif",serif;
+    font-size:2.5rem;
+    font-weight:600;
+    margin:0.6rem 0 1rem;
+    line-height:1.2;
+}
+
+.Description{
+    font-family:"Inria Serif",serif;
+    font-size:1.2rem;
+    font-style:italic;
+    line-height:1.8;
+}
+
+/* ==========================
+   Tablet
+========================== */
+
+@media (max-width:992px){
+
+    .our-mission{
+        padding:3rem 5%;
+    }
+
+    .container{
+        gap:2.5rem;
+        padding:3rem;
+    }
+
+    .text2{
+        font-size:2rem;
+    }
+
+    .Description{
+        font-size:1.1rem;
+    }
+
+    .imagesection{
+        height:340px;
+    }
 
 }
-#img{
-    object-fit: cover;
-    height:100%;
-    width:100%;
+
+/* ==========================
+   Mobile
+========================== */
+
+@media (max-width:768px){
+
+    .container{
+        flex-direction:column;
+        padding:2rem;
+        gap:2rem;
+    }
+
+    .TextSection,
+    .imagesection{
+        width:100%;
+    }
+
+    .imagesection{
+        height:300px;
+    }
+
+    .text1{
+        font-size:1.2rem;
+        text-align:center;
+    }
+
+    .text2{
+        font-size:1.8rem;
+        text-align:center;
+    }
+
+    .Description{
+        font-size:1rem;
+        text-align:center;
+    }
+
 }
-.Description{
- font-family:"Inria Serif",serif;
- font-size:1.3em;
- font-weight: 400;
- font-style: italic;
-}
-.imagesection{
-    height:50%;
-    width:40%;
-    position:absolute;
-    top:25%;
-    left:40%;
-    background-color: rgb(76, 81, 81);
-   margin-left:5rem;
-    
-}
-.TextSection{
-    height:100%;
-    width:40%;
+
+/* ==========================
+   Small Phones
+========================== */
+
+@media (max-width:480px){
+
+    .our-mission{
+        padding:2rem 1rem;
+    }
+
+    .container{
+        padding:1.5rem;
+    }
+
+    .imagesection{
+        height:230px;
+    }
+
+    .text2{
+        font-size:1.5rem;
+    }
+
+    .Description{
+        font-size:0.95rem;
+    }
+
 }

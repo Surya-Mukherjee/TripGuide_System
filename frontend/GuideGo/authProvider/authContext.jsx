@@ -14,7 +14,8 @@ export function AuthProvider({children}){
  }
  async function register(credentials){
   const res=await registerApi(credentials)
-   setUser(res.data);
+   setUser(res.data.sdata);
+   return res
  }
  async function logout(){
   const res= await logoutApi()

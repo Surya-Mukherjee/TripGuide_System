@@ -10,6 +10,9 @@ const Navbar = ({isVisible}) => {
     const handleClickGuide=()=>{
     navigate()
     }
+    const handleClickLogin=()=>{
+    navigate("/users/login")
+    }
   return (
     <div className={`nav${isVisible?" animate":""}`}>
       <div className="logonav">
@@ -37,7 +40,7 @@ const Navbar = ({isVisible}) => {
         </div>
       ) : (
         <div className="authBtn">
-          <button id='login'>Login</button>
+          <button id='login' onClick={handleClickLogin}>Login</button>
           <button id='register'>Register</button>
         </div>
       )}

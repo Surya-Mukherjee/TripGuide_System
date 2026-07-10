@@ -14,6 +14,7 @@ const Mission = () => {
           duration: 0.6,
           delay:  0.2
         }}
+        viewport={{once:true}}
         >
         <span className= 'text1'>Our Mission</span>
         <h2 className='text2'>Travel the way locals do</h2>
@@ -27,7 +28,8 @@ const Mission = () => {
         transition={{
           duration: 0.6,
           delay:  0.4
-        }}>
+        }}
+        viewport={{once:true}}>
         <img src={image} id='img'/>
       </motion.div>
       </div>

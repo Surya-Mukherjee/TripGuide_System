@@ -2,6 +2,7 @@ import { apiError } from "../utilities/apiError.js";
 import { asyncHandler } from "../utilities/asyncHandler.js";
 
 const reqbody= asyncHandler(async(req,_,next)=>{
+   console.log("reqbody:",req.body)
      if(!req.body){
         throw new apiError(500,"body not found")
      }

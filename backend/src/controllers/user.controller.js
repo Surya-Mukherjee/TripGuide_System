@@ -9,18 +9,27 @@ import { Guide } from '../models/guides.model.js'
 import fs from 'fs'
 import { deletion } from '../utilities/deletion.js'
 import {z} from 'zod'
+import jwt from 'jsonwebtoken';
 const userScheme= z.object({
-    userName:z.string(),
-    email:z.email(),
-    password:z.string().min(8,"password must contain atleast 8 characters")
+    userName:z.string().optional(),
+    email:z.email().optional(),
+    password:z.string().min(8,"password must contain atleast 8 characters"),
+    role:z.string().optional()
+}).refine((data)=>data.userName||data.email,{
+    message:"one field is required  "
 })
-const refreshAndAccessTokenGenerator=async(user_id)=>{
-    const user= await User.findById(user_id);
-    const accessToken=user.accessTokenGenerator();
+const RefreshTokenGenerator=async(user_id)=>{
+    const user=await User.findById(user_id)
     const refreshToken=user.refreshTokenGenerator();
     user.refreshToken=refreshToken
     user.save({validateBeforeSave:false})
-    return {accessToken,refreshToken}
+    return{refreshToken}
+}
+const AccessTokenGenerator=async(user_id)=>{
+    const user= await User.findById(user_id);
+    const accessToken=user.accessTokenGenerator();
+    
+    return {accessToken}
 }
 const registerUser= asyncHandler(async(req,res)=>{
      const {userName,email,role,password}= req.body
@@ -64,7 +73,8 @@ const registerUser= asyncHandler(async(req,res)=>{
               password,
               role
            })
-         const {accessToken,refreshToken}=await refreshAndAccessTokenGenerator(user._id)
+         const {accessToken}=await AccessTokenGenerator(user._id)
+         const {refreshToken}=await RefreshTokenGenerator(user._id)
          const loggedin=await User.findById(user._id)
          if(!loggedin){
             throw new apiError(500,"cant log in. Try manually logging in ")
@@ -93,7 +103,7 @@ const registerUser= asyncHandler(async(req,res)=>{
 
 const login=asyncHandler(async (req,res)=>{
     console.log(req.body)
-    const{userName,email,password}= req.body;
+    const{userName,email,password,rememberMe}= req.body;
     if(!userName && !email){
         throw new apiError(400,"UserName or email is required");
     }
@@ -113,12 +123,16 @@ const login=asyncHandler(async (req,res)=>{
         throw new apiError(401,"password invalid")
     }
 
-    const {accessToken,refreshToken}=await refreshAndAccessTokenGenerator(user._id)
+    const {accessToken}=await AccessTokenGenerator(user._id)
+    const {refreshToken}=await RefreshTokenGenerator(user._id)
     const loggedIn= await User.findById(user._id).select("-password -refreshToken");
     const options={
         httpOnly:true,
         secure:true
     }
+  if(rememberMe){
+      options.maxAge = 30 * 24 * 60 * 60 * 1000
+  }
     return res
     .status(200)
     .cookie("accessToken",accessToken,options)
@@ -131,7 +145,39 @@ const login=asyncHandler(async (req,res)=>{
             refreshToken
          },"User is logged in")
 )})
+//handling the expiration of AccessToken
+const HandleExpiredAccessToken=asyncHandler(async(req,res)=>{
+    const refreshToken=req.cookies.refreshToken;
+    if(!refreshToken){
+        throw new apiError(401,"unauthorised");
+    }
+    try{
+    const decode= jwt.verify(refreshToken,process.env.REFRESH_TOKEN_SECRET_KEY)
+  
+    const user=await User.findById(decode._id);
+    if(!user){
+        throw new apiError(401,"invalid refresh Token")
+    }
+    if(user.refreshToken!==refreshToken){
+        throw new apiError(401,"invalid refresh token")
+          const accessToken = user.generateAccessToken();
 
+    res
+        .status(200)
+        .cookie("accessToken", accessToken, accessOptions)
+        .json(new apiResponse(200, {}, "Access token refreshed"));
+    }
+}catch(err){
+   if(err.name=="TokenExpiredError"){
+    throw new apiError(401," REFRESH_TOKEN EXPIRED")
+   }
+    if (error.name === "JsonWebTokenError") {
+        throw new apiError(401, "Invalid refresh token");
+    }
+        throw new apiError(500, "Something went wrong while verifying refresh token");
+
+}
+})
 //logout setup
 const logout=asyncHandler(async(req,res)=>{
     const userId= req.user._id;
@@ -269,4 +315,4 @@ const deleteUser= asyncHandler(async(req,res)=>{
 })
 
 
-export { registerUser,login,logout,getProfile,updateProfile,passwordUpdate,deleteUser,userScheme}
+export { AccessTokenGenerator,RefreshTokenGenerator,registerUser,login,logout,getProfile,updateProfile,passwordUpdate,deleteUser,userScheme}
