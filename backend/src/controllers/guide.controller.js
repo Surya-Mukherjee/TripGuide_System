@@ -225,7 +225,9 @@ const getFeaturedGuides=asyncHandler(async(req,res)=>{
         .populate("userId", "userName profilePic")
         .sort({ avgRating: -1 })
         .limit(4);
-
+     if(!guides){
+        throw new apiError(404,"Not found")
+     }
     res.status(200).json({
         success: true,
         guides

@@ -14,7 +14,8 @@ const userScheme= z.object({
     userName:z.string().optional(),
     email:z.email().optional(),
     password:z.string().min(8,"password must contain atleast 8 characters"),
-    role:z.string().optional()
+    role:z.string().optional(),
+    rememberMe:z.boolean().optional()
 }).refine((data)=>data.userName||data.email,{
     message:"one field is required  "
 })
@@ -32,7 +33,7 @@ const AccessTokenGenerator=async(user_id)=>{
     return {accessToken}
 }
 const registerUser= asyncHandler(async(req,res)=>{
-     const {userName,email,role,password}= req.body
+     const {userName,email,role,password,rememberMe}= req.body
       console.log(req.body)
      //check for empty username and email
      if(userName =="" || email ==""||password ==""){
@@ -79,14 +80,21 @@ const registerUser= asyncHandler(async(req,res)=>{
          if(!loggedin){
             throw new apiError(500,"cant log in. Try manually logging in ")
          }
-         const options={
-            httpOnly:true,
-            secure:true
-         }
+            const options={
+        httpOnly:true,
+        secure:process.env.MODE_ENV==="production"
+    }
+    const refreshoptions={
+        httpOnly:true,
+        secure:process.env.MODE_ENV==="production"
+    }
+  if(rememberMe==true){
+      refreshoptions.maxAge= 30 * 24 * 60 * 60 * 1000
+  }
 
          return res.status(201)
          .cookie("accessToken",accessToken,options)
-         .cookie("refreshToken",refreshToken,options)
+         .cookie("refreshToken",refreshToken,refreshoptions)
          .json( 
          new apiResponse(200,user,"User registered successfully")
      )
@@ -102,7 +110,7 @@ const registerUser= asyncHandler(async(req,res)=>{
 
 
 const login=asyncHandler(async (req,res)=>{
-    console.log(req.body)
+    console.log("controller reached")
     const{userName,email,password,rememberMe}= req.body;
     if(!userName && !email){
         throw new apiError(400,"UserName or email is required");
@@ -128,21 +136,25 @@ const login=asyncHandler(async (req,res)=>{
     const loggedIn= await User.findById(user._id).select("-password -refreshToken");
     const options={
         httpOnly:true,
-        secure:true
+        secure:process.env.MODE_ENV==="production"
     }
-  if(rememberMe){
-      options.maxAge = 30 * 24 * 60 * 60 * 1000
+    const refreshoptions={
+        httpOnly:true,
+        secure:process.env.MODE_ENV==="production"
+    }
+  if(rememberMe==true){
+      refreshoptions.maxAge= 30 * 24 * 60 * 60 * 1000
   }
+  console.log(options)
     return res
     .status(200)
     .cookie("accessToken",accessToken,options)
-    .cookie("refreshToken",refreshToken,options)
+    .cookie("refreshToken",refreshToken,refreshoptions)
     .json(
          new apiResponse(200,{
             user:loggedIn,
-            role:loggedIn.role,
-            accessToken,
-            refreshToken
+           
+          
          },"User is logged in")
 )})
 //handling the expiration of AccessToken

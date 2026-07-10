@@ -28,7 +28,7 @@ export default function LoginComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("FormData:",formData )
     setError("");
 
     if (!formData.usernameOrEmail.trim()) {
@@ -58,7 +58,7 @@ export default function LoginComponent() {
       const response = await login(body)
 
       const data =  response;
-       console.log("response:",response)
+       console.log("response:",data)
       if (!response.ok) {
         throw new Error(data.message || "Login failed");
       }

@@ -10,12 +10,17 @@ export function AuthProvider({children}){
  const[loading,setLoading]=useState(true);
  async function login(credentials){
   const res= await loginApi(credentials);
-  setUser(res.data)
+   console.log("Full response:", res);
+  console.log("res.data:", res.data);
+  console.log("res.data.user:", res.data.user);
+  setUser(res.data.data.user)
+  console.log("user:",user)
+  return res.data
  }
  async function register(credentials){
   const res=await registerApi(credentials)
-   setUser(res.data.sdata);
-   return res
+   setUser(res.data.data.user);
+   
  }
  async function logout(){
   const res= await logoutApi()
@@ -30,9 +35,11 @@ export function AuthProvider({children}){
         try{
           setLoading(true)
           const data=await getCurrentUser()
-          const guide=await getFeaturedGuides();
-          setGuides(guide)
           setUser(data)
+          // const guide=await getFeaturedGuides();
+          // console.log(guide)
+          // setGuides(guide)
+          
         }catch(err){
           setUser(null)
         }finally{
@@ -41,7 +48,9 @@ export function AuthProvider({children}){
       }
       fetchUser()
  },[])
-
+useEffect(() => {
+  console.log("User changed:", user);
+}, [user]);
  return (
   <authContext.Provider value={{
     user,
