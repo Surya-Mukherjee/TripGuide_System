@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, NavLink, useNavigate } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { useAuth } from '../../../authProvider/authContext'
 import Spinner from '../smallSpinner/Spinner'
 import './navbar.css'
@@ -10,10 +10,6 @@ const Navbar = ({ isVisible }) => {
     const navigate = useNavigate()
 
     const [menuOpen, setMenuOpen] = useState(false)
-
-    const handleClickGuide = () => {
-        navigate()
-    }
 
     const handleClickLogin = () => {
         navigate("/users/login")
@@ -30,134 +26,165 @@ const Navbar = ({ isVisible }) => {
     }
 
     return (
-        <div className={`nav ${isVisible ? "animate" : ""}`}>
+        <>
 
-            <div className="logonav">
-                <span className='Guide'>Guide</span>
-                <span className='Go'>Go</span>
-            </div>
+            {/* Navbar */}
 
-            <div
-                className={`hamburger ${menuOpen ? "open" : ""}`}
-                onClick={() => setMenuOpen(!menuOpen)}
-            >
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <div className={`nav ${isVisible ? "animate" : ""}`}>
 
-            <div className={`links ${menuOpen ? "showMenu" : ""}`}>
+                <div className="logonav">
+                    <span className='Guide'>Guide</span>
+                    <span className='Go'>Go</span>
+                </div>
 
-                <div className="mobileTop">
+                <div
+                    className={`hamburger ${menuOpen ? "open" : ""}`}
+                    onClick={() => setMenuOpen(prev => !prev)}
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                 <div className="links">
 
-                    {loading ? (
-                        <Spinner />
-                    ) : user ? (
+    <NavLink
+        to="/"
+        className={({ isActive }) => isActive ? "active" : "notActive"}
+    >
+        Home
+    </NavLink>
 
+    <NavLink
+        to="/About"
+        className={({ isActive }) => isActive ? "active" : "notActive"}
+    >
+        About
+    </NavLink>
+
+    <NavLink
+        to="/Guides"
+        className={({ isActive }) => isActive ? "active" : "notActive"}
+    >
+        Guides
+    </NavLink>
+
+</div>
+                {loading ? (
+
+                    <Spinner />
+
+                ) : user ? (
+
+                    <div className='imgcontainer'>
                         <NavLink
-                            className="mobileProfile"
+                            className="profile"
                             to="/users/profile"
-                            onClick={closeMenu}
                         >
                             <img
-                                className="mobileProfilePic"
+                                className="profilePic"
                                 src={user.data.data.profilePic}
                                 alt="Profile"
                             />
                         </NavLink>
+                    </div>
 
-                    ) : (
+                ) : (
 
-                        <div className="mobileBtns">
+                    <div className="authBtn">
 
-                            <button
-                                id="mobileLogin"
-                                onClick={handleClickLogin}
-                            >
-                                Login
-                            </button>
+                        <button
+                            id='login'
+                            onClick={handleClickLogin}
+                        >
+                            Login
+                        </button>
 
-                            <button
-                                id="mobileRegister"
-                                onClick={handleClickRegister}
-                            >
-                                Register
-                            </button>
+                        <button
+                            id='register'
+                            onClick={handleClickRegister}
+                        >
+                            Register
+                        </button>
 
-                        </div>
+                    </div>
 
-                    )}
-
-                </div>
-
-                <NavLink
-                    to="/"
-                    className={({ isActive }) => isActive ? "active" : "notActive"}
-                    onClick={closeMenu}
-                >
-                    Home
-                </NavLink>
-
-                <NavLink
-                    to="/About"
-                    className={({ isActive }) => isActive ? "active" : "notActive"}
-                    onClick={closeMenu}
-                >
-                    About
-                </NavLink>
-
-                <NavLink
-                    to="/Guides"
-                    className={({ isActive }) => isActive ? "active" : "notActive"}
-                    onClick={closeMenu}
-                >
-                    Guides
-                </NavLink>
+                )}
 
             </div>
 
-            {loading ? (
+            {/* Mobile Menu */}
 
-                <Spinner />
+            <div className={`mobileMenu ${menuOpen ? "showMenu" : ""}`}>
 
-            ) : user ? (
+    <div className="mobileTop">
 
-                <div className='imgcontainer'>
-                    <NavLink
-                        className="profile"
-                        to="/users/profile"
-                    >
-                        <img
-                            className="profilePic"
-                            src={user.data.data.profilePic}
-                            alt="Profile"
-                        />
-                    </NavLink>
-                </div>
+        {loading ? (
+            <Spinner />
+        ) : user ? (
 
-            ) : (
+            <NavLink
+                className="mobileProfile"
+                to="/users/profile"
+                onClick={closeMenu}
+            >
+                <img
+                    className="mobileProfilePic"
+                    src={user.data.data.profilePic}
+                    alt="Profile"
+                />
+            </NavLink>
 
-                <div className="authBtn">
+        ) : (
 
-                    <button
-                        id='login'
-                        onClick={handleClickLogin}
-                    >
-                        Login
-                    </button>
+            <div className="mobileBtns">
 
-                    <button
-                        id='register'
-                        onClick={handleClickRegister}
-                    >
-                        Register
-                    </button>
+                <button
+                    id="mobileLogin"
+                    onClick={handleClickLogin}
+                >
+                    Login
+                </button>
 
-                </div>
+                <button
+                    id="mobileRegister"
+                    onClick={handleClickRegister}
+                >
+                    Register
+                </button>
 
-            )}
+            </div>
 
-        </div>
+        )}
+
+    </div>
+
+    <NavLink
+        to="/"
+        className={({ isActive }) => isActive ? "active" : "notActive"}
+        onClick={closeMenu}
+    >
+        Home
+    </NavLink>
+
+    <NavLink
+        to="/About"
+        className={({ isActive }) => isActive ? "active" : "notActive"}
+        onClick={closeMenu}
+    >
+        About
+    </NavLink>
+
+    <NavLink
+        to="/Guides"
+        className={({ isActive }) => isActive ? "active" : "notActive"}
+        onClick={closeMenu}
+    >
+        Guides
+    </NavLink>
+
+</div>
+
+        </>
     )
 }
 

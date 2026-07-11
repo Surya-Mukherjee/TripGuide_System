@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Login.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Spinner from "../smallSpinner/Spinner";
 import { useAuth } from "../../../authProvider/authContext";
 import loginimg from "../../assets/login.png"
+import { useNavigate } from "react-router-dom";
 
 export default function LoginComponent() {
-    const {login}=useAuth();
+  const navigate=useNavigate()
+    const {login,user}=useAuth();
   const [formData, setFormData] = useState({
     usernameOrEmail: "",
     password: "",
@@ -72,7 +74,11 @@ export default function LoginComponent() {
       setLoading(false);
     }
   };
-
+ useEffect(()=>{
+  if(user){
+    navigate("/")
+  }
+ })
   return (
     <div className="login-page">
       <div className="login-card">

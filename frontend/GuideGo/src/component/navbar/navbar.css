@@ -16,8 +16,8 @@
     right:0;
     z-index:20;
 
-    background:rgba(255,255,255,0.08);
-    backdrop-filter:blur(32px);
+    background:rgba(255,255,255,0.08); 
+    backdrop-filter:blur(32px); 
     border-bottom:1px solid rgba(255,255,255,0.15);
     box-shadow:0 8px 32px rgba(0,0,0,0.12);
 
@@ -243,7 +243,11 @@ a{
     font-weight:600;
     cursor:pointer;
 }
-
+@media(max-width:1920px){
+    .mobileMenu{
+        display:none
+    }
+}
 /* Tablet */
 
 @media(max-width:900px){
@@ -285,7 +289,7 @@ a{
 
     /* Mobile Menu */
 
-  .links{
+  .mobileMenu{
     position:fixed;
     top:4em;
     right:0;
@@ -299,7 +303,7 @@ a{
 
     gap:1.8rem;
     padding:2rem 1rem;
-  background:rgba(238, 238, 238, 0.968);
+  background:rgba(238, 238, 238, 0.175);
     backdrop-filter:blur(30px)!important;
 
     border-left:1px solid rgba(255,255,255,.18);
@@ -311,7 +315,7 @@ a{
 
     transform:translateX(100%);
     transition:transform .35s ease;
-
+    isolation:isolate;
     overflow-y:auto;
     z-index:100;
 }
@@ -319,7 +323,7 @@ a{
 
 
 
-    .links.showMenu{
+    .mobileMenu.showMenu{
         transform:translateX(0);
     }
 
@@ -335,7 +339,7 @@ a{
 
     /* Mobile Links */
 
-    .links a{
+    .mobileMenu a{
         width:100%;
         text-align:center;
         font-size:1.25rem;
@@ -345,7 +349,8 @@ a{
     /* Hide Desktop Elements */
 
     .authBtn,
-    .imgcontainer{
+    .imgcontainer,
+    .links{
         display:none;
     }
 }
