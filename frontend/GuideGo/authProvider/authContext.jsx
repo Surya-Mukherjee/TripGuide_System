@@ -34,8 +34,9 @@ export function AuthProvider({children}){
     const fetchUser=async()=>{
         try{
           setLoading(true)
-          const data=await getCurrentUser()
-          setUser(data)
+          const res=await getCurrentUser()
+           
+          setUser(res.data.data.user)
           // const guide=await getFeaturedGuides();
           // console.log(guide)
           // setGuides(guide)

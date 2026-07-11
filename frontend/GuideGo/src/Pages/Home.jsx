@@ -9,7 +9,7 @@ import Spinner from '../component/smallSpinner/Spinner'
 
 const Home = ({isVisible}) => {
   return (
-    <div>
+    <>
         <Navbar isVisible={isVisible}/>
       <Hero isVisible={isVisible}/>
       <HowItWorks/>
@@ -17,7 +17,7 @@ const Home = ({isVisible}) => {
       <Mission />
       <Footer/>
      
-    </div>
+    </>
   )
 }
 

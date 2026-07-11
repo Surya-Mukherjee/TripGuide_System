@@ -8,6 +8,7 @@ import Hero from './component/landing/Hero';
 import Home from './Pages/Home';
 import Spinner from './component/smallSpinner/Spinner';
 import Login from './Pages/Login';
+import RegistrationPage from './Pages/RegistrationPage';
 
 const App = () => {
     const [isLoading,setLoading]=useState(true);
@@ -21,7 +22,8 @@ const App = () => {
   },{
     path:"/users",
     children:[
-      {path:"login",Component:Login}
+      {path:"login",Component:Login},
+      {path:"register",Component:RegistrationPage}
     ]
   }
 ],),[isVisible]

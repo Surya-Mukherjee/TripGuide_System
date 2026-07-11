@@ -82,7 +82,7 @@ const Navbar = ({ isVisible }) => {
                         >
                             <img
                                 className="profilePic"
-                                src={user.data.data.profilePic}
+                                src={user.profilePic}
                                 alt="Profile"
                             />
                         </NavLink>
@@ -127,9 +127,10 @@ const Navbar = ({ isVisible }) => {
                 to="/users/profile"
                 onClick={closeMenu}
             >
+               
                 <img
                     className="mobileProfilePic"
-                    src={user.data.data.profilePic}
+                    src={user.profilePic}
                     alt="Profile"
                 />
             </NavLink>

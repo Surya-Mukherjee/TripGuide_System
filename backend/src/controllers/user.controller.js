@@ -229,7 +229,7 @@ const getProfile= asyncHandler(async(req,res)=>{
     return res
     .status(200)
     .json(
-        new apiResponse(200,user,"Profile fetched successfully")
+        new apiResponse(200,{user:user},"Profile fetched successfully")
     )
 })
 //update profile(pic,username,email,password)

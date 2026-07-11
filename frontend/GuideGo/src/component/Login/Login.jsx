@@ -61,9 +61,7 @@ export default function LoginComponent() {
 
       const data =  response;
        console.log("response:",data)
-      if (!response.ok) {
-        throw new Error(data.message || "Login failed");
-      }
+   
 
       console.log("Logged In:", data);
 
@@ -74,11 +72,15 @@ export default function LoginComponent() {
       setLoading(false);
     }
   };
+   console.log("users:",user)
  useEffect(()=>{
+ 
+  console.log("ran again")
   if(user){
+   console.log("navigating...")
     navigate("/")
   }
- })
+ },[user])
   return (
     <div className="login-page">
       <div className="login-card">

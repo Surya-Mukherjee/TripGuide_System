@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap");
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+.register{
+    display:flex;
+    min-height:100vh;
+
+}
+.leftSection{
+  width:45%;
+  position:relative;
+  background-size: cover;
+  background-position: center; 
+}
+.overlayBlack{
+  position:absolute;
+  inset:0;
+    background-color:rgba(0, 0, 0, 0.43);
+}
+.leftContent{
+    display:flex;
+    flex-direction:column;
+    height:100%;
+    justify-content:center;
+    position:relative;
+    z-index:2;
+    color:white;
+    padding:70px
+}
+.imgreg{
+    display:flex;
+    width:190px;
+    margin-bottom:60px;
+}
+.leftContent h1{
+   font-family:"Playfair Display",serif;
+   line-height:1.1;
+}
+.leftContent span{
+    color:#ff8c38;
+    font-style:italic;
+}
+.line{
+    width:120px;
+    height:4px;
+    background-color:#ff8c38;
+    border-radius:50%;
+    margin:20px 0
+}
+.leftContent p{
+    font-size:1.1rem;
+    font-family: "Poppins",serif;
+    max-width:420px;
+    line-height: 1.8rem;
+}
+.compass{
+    color:#ff8c38;
+    margin-right:5px
+}
+.rightContent{
+    width:55%;
+    padding:40px 70px 20px 70px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.formcard{
+    width:100%;
+    max-width:650px;
+    height:100%;
+    border-radius:20%;
+    box-shadow:0 20px 45px rgba(0,0,0,0.08);
+    padding:20px;
+}
+
+.formcard h2{
+    text-align:center;
+    font-size:2.4rem;
+    font-family:"Playfair Display";
+}
+
+.formcard>p{
+    text-align:center;
+    color:#777;
+    margin:12px 0 35px;
+}
+.inputbox{
+   
+    display:flex;
+    align-items:center;
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:15px 18px;
+    margin:0 4px 18px 5px;
+    gap:15px;
+
+}
+.inputbox input{
+    border:none;
+    width:100%;
+    outline:none;
+    font-size:1rem;
+    background:transparent;
+}
+
+.eye{
+    cursor:pointer;
+    color:#888
+}
+.passwordGroup{
+    display:grid;
+    grid-template-columns:3fr 3fr;
+    gap:18px;
+}
+.roletitle{
+    display:block;
+    margin:15px 0;
+    font-weight:600;
+}
+.rolecontainer{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+.rolecard{
+    width:auto;
+    height:auto;
+    display:flex;
+    padding:20px;
+    border:2px solid #e7e7e7;
+    border-radius:0 15px 15px;
+    gap:15px;
+}
+.rolecard input{
+    background-color:orange
+}
+.rolecard:hover{
+    border-color:#ff8c38;
+}
+.rolecard h4{
+    margin-bottom:8px
+}
+.rolecard p{
+    color:#666;
+    font-size:.9rem
+}
+button{
+    width:100%;
+    border:none;
+    padding:17px;
+    border-radius:12px;
+    background:#ff7b2f;
+    color:white;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+    margin-top:20px;
+}
+
+button:hover{
+    background:#eb6820;
+}
+
+.LoginText{
+    text-align:center;
+    margin-top:5px;
+}
