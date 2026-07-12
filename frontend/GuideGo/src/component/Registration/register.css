@@ -7,6 +7,7 @@
 .register{
     display:flex;
     min-height:100vh;
+    position:relative;
 
 }
 .leftSection{
@@ -14,6 +15,7 @@
   position:relative;
   background-size: cover;
   background-position: center; 
+  z-index:1;
 }
 .overlayBlack{
   position:absolute;
@@ -62,18 +64,23 @@
 }
 .rightContent{
     width:55%;
-    padding:40px 70px 20px 70px;
+    padding:10px 70px 20px 70px;
     display:flex;
     justify-content: center;
     align-items: center;
+     z-index:2;
+    margin-top:0px;
 }
 .formcard{
     width:100%;
     max-width:650px;
+    display:flex;
+    flex-direction: column;
     height:100%;
-    border-radius:20%;
-    box-shadow:0 20px 45px rgba(0,0,0,0.08);
-    padding:20px;
+    border-radius:20px;
+    box-shadow:0 20px 45px rgba(0, 0, 0, 0.449);
+    padding:10px;
+
 }
 
 .formcard h2{
@@ -85,7 +92,7 @@
 .formcard>p{
     text-align:center;
     color:#777;
-    margin:12px 0 35px;
+    margin:12px 0 10px;
 }
 .inputbox{
    
@@ -94,8 +101,8 @@
     border:1px solid #ddd;
     border-radius:12px;
     padding:15px 18px;
-    margin:0 4px 18px 5px;
-    gap:15px;
+    margin:0 4px 10px 5px;
+    gap:8px;
 
 }
 .inputbox input{
@@ -112,12 +119,12 @@
 }
 .passwordGroup{
     display:grid;
-    grid-template-columns:3fr 3fr;
+    grid-template-columns:1fr 1fr;
     gap:18px;
 }
 .roletitle{
     display:block;
-    margin:15px 0;
+    margin:10px 0 0;
     font-weight:600;
 }
 .rolecontainer{
@@ -127,9 +134,9 @@
 }
 .rolecard{
     width:auto;
-    height:auto;
+    height:100px;
     display:flex;
-    padding:20px;
+    padding:15px;
     border:2px solid #e7e7e7;
     border-radius:0 15px 15px;
     gap:15px;
@@ -158,7 +165,8 @@ button{
     font-weight:600;
     cursor:pointer;
     transition:.3s;
-    margin-top:20px;
+    
+    margin:10px 0 0;
 }
 
 button:hover{
@@ -168,4 +176,263 @@ button:hover{
 .LoginText{
     text-align:center;
     margin-top:5px;
+}
+.profileUpload{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.profileUpload label{
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    /* gap:12px; */
+}
+
+.profilePreview{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid #ff8c38;
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+}
+
+.profileUpload span{
+    color:#ff8c38;
+    font-weight:600;
+}
+@media screen and (max-width:1024px){
+
+    .register{
+        flex-direction:column;
+    }
+
+    .leftSection{
+        width:100%;
+        min-height:320px;
+    }
+
+    .leftContent{
+        padding:40px 30px;
+        justify-content:flex-end;
+    }
+
+    .imgreg{
+        width:160px;
+        margin-bottom:25px;
+    }
+
+    .leftContent h1{
+        font-size:2.6rem;
+    }
+
+    .leftContent p{
+        max-width:100%;
+        font-size:1rem;
+    }
+
+    .rightContent{
+        width:100%;
+        padding:30px 20px;
+    }
+
+    .formcard{
+        max-width:700px;
+        height:auto;
+        padding:30px;
+    }
+
+    .passwordGroup{
+        grid-template-columns:1fr;
+        gap:18px;
+    }
+
+    .rolecontainer{
+        grid-template-columns:1fr;
+    }
+}
+
+@media screen and (max-width:768px){
+
+    .leftSection{
+        min-height:280px;
+    }
+
+    .leftContent{
+        padding:25px;
+    }
+
+    .imgreg{
+        width:140px;
+        margin-bottom:18px;
+    }
+
+    .leftContent h1{
+        font-size:2rem;
+    }
+
+    .leftContent p{
+        font-size:.95rem;
+        line-height:1.6;
+    }
+
+    .rightContent{
+        padding:20px 15px 30px;
+    }
+
+    .formcard{
+        padding:25px 20px;
+        border-radius:18px;
+    }
+
+    .formcard h2{
+        font-size:1.8rem;
+    }
+
+    .inputbox{
+        padding:14px 16px;
+        margin-bottom:15px;
+    }
+
+    .rolecard{
+        padding:16px;
+    }
+
+    .profilePreview{
+        width:90px;
+        height:90px;
+    }
+
+    button{
+        padding:15px;
+    }
+}
+
+@media screen and (max-width:480px){
+
+    .register{
+        min-height:auto;
+    }
+
+    .leftSection{
+        min-height:240px;
+    }
+
+    .leftContent{
+        padding:20px;
+    }
+
+    .imgreg{
+        width:120px;
+        margin-bottom:15px;
+    }
+
+    .leftContent h1{
+        font-size:1.7rem;
+    }
+
+    .line{
+        width:70px;
+        margin:15px 0;
+    }
+
+    .leftContent p{
+        font-size:.9rem;
+        line-height:1.5;
+    }
+
+    .rightContent{
+        padding:15px 10px 25px;
+    }
+
+    .formcard{
+        padding:20px 15px;
+        border-radius:15px;
+    }
+
+    .formcard h2{
+        font-size:1.5rem;
+    }
+
+    .formcard>p{
+        font-size:.9rem;
+        margin-bottom:25px;
+    }
+
+    .inputbox{
+        padding:12px 14px;
+        gap:10px;
+    }
+
+    .inputbox input{
+        font-size:.95rem;
+    }
+
+    .rolecard{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+    }
+
+    .profilePreview{
+        width:80px;
+        height:80px;
+    }
+
+    button{
+        padding:14px;
+        font-size:.95rem;
+    }
+
+    .LoginText{
+        font-size:.9rem;
+    }
+}
+
+@media screen and (max-width:360px){
+
+    .leftContent h1{
+        font-size:1.45rem;
+    }
+
+    .imgreg{
+        width:100px;
+    }
+
+    .formcard{
+        padding:15px 12px;
+    }
+
+    .formcard h2{
+        font-size:1.3rem;
+    }
+
+    .profilePreview{
+        width:70px;
+        height:70px;
+    }
+     .rightContent{
+        width:100%;
+        padding:0 20px 30px;
+        position:relative;
+    }
+
+    .formcard{
+        position:relative;
+        transform:translateY(-90px);
+        z-index:100;
+        background:#fff;
+        box-shadow:0 25px 60px rgba(0,0,0,.2);
+    }
+    .inputbox{
+        padding:10px 12px;
+    }
+
+    button{
+        padding:12px;
+    }
 }

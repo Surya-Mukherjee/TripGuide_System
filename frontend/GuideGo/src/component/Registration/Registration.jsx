@@ -13,7 +13,20 @@ import background from "../../assets/Register.png";
 import logo from "../../assets/GuideGo.png";
 
 import { FaPersonWalking } from "react-icons/fa6";
+import { useState } from "react";
+import avatar from "../../assets/avatar.png"
 export default function Register() {
+    const [preview, setPreview] = useState(null);
+const [profilePic, setProfilePic] = useState(null);
+
+function handleImage(e) {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    setProfilePic(file);
+    setPreview(URL.createObjectURL(file));
+}
   return (
     <section className="register">
         <div className="leftSection"
@@ -42,6 +55,27 @@ export default function Register() {
                 <h2>Create your Account</h2>
                 <p>Start your journey with GuideGo</p>
                 <form>
+                   <div className="profileUpload">
+                          <label htmlFor="profile">
+
+                        <img
+                          src={preview || avatar}
+                            alt="Profile"
+                            className="profilePreview"
+                         />
+
+                         <span>Upload Photo</span>
+
+                         </label>
+
+                         <input
+                            id="profile"
+                             type="file"
+                              accept="image/*"
+                               onChange={handleImage}
+                             hidden
+                                 />
+                    </div>
                     <div className="inputbox">
                         <FaUser/>
                         <input
@@ -56,13 +90,7 @@ export default function Register() {
                          placeholder="Enter your email adress"
                          />
                     </div>
-                     <div className="inputbox">
-                        <FaEnvelope/>
-                        <input
-                         type="email"
-                         placeholder="Enter your email adress"
-                         />
-                    </div>
+                    
                     <div className="passwordGroup">
                          <div className="inputbox">
                         <FaLock/>
@@ -95,7 +123,7 @@ export default function Register() {
 
                             <div>
                                   <FaPersonWalking/> 
-                                <h4>I am a traveller</h4>
+                                <h4>Traveller</h4>
                                 <p>I want to travel</p>
                                 
                             </div>
@@ -108,7 +136,7 @@ export default function Register() {
                                />
                                <div>
                                  <MdTour/>
-                                <h4>I am a Guide</h4>
+                                <h4> Guide</h4>
                                 <p>I guide Travellers</p>
                                </div>
                         </label>
