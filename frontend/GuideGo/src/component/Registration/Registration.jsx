@@ -11,18 +11,24 @@ import {
 import { MdTour } from "react-icons/md";
 import background from "../../assets/Register.png";
 import logo from "../../assets/GuideGo.png";
-
 import { FaPersonWalking } from "react-icons/fa6";
 import { useState } from "react";
 import avatar from "../../assets/avatar.png"
+
+
+
+
 export default function Register() {
-    const [preview, setPreview] = useState(null);
-const [profilePic, setProfilePic] = useState(null);
 
-function handleImage(e) {
-    const file = e.target.files[0];
 
-    if (!file) return;
+   const [preview, setPreview] = useState(null);
+
+  const [profilePic, setProfilePic] = useState(null);
+
+  function handleImage(e) {
+     const file = e.target.files[0];
+
+      if (!file) return;
 
     setProfilePic(file);
     setPreview(URL.createObjectURL(file));

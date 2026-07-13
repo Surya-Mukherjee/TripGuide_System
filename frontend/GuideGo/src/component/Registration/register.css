@@ -316,10 +316,14 @@ button:hover{
 
     .register{
         min-height:auto;
+        position:relative;
+      
     }
 
     .leftSection{
         min-height:240px;
+        position:relative;
+        z-index:1
     }
 
     .leftContent{
@@ -343,15 +347,21 @@ button:hover{
     .leftContent p{
         font-size:.9rem;
         line-height:1.5;
+        display:none
     }
 
     .rightContent{
         padding:15px 10px 25px;
+         position:relative;
+         z-index:2;
     }
 
     .formcard{
         padding:20px 15px;
         border-radius:15px;
+       position:relative;
+           background:#fff;
+        transform:translateY(-90px)
     }
 
     .formcard h2{

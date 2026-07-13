@@ -10,6 +10,27 @@ import fs from 'fs'
 import { deletion } from '../utilities/deletion.js'
 import {z} from 'zod'
 import jwt from 'jsonwebtoken';
+const userRegisterSchema = z.object({
+    userName: z.string().min(1, "Username is required"),
+
+    email: z.string().email("Invalid email"),
+
+    password: z
+        .string()
+        .min(8, "Password must contain at least 8 characters"),
+
+    confirmPassword: z
+        .string()
+        .min(8, "Confirm password must contain at least 8 characters"),
+
+    role: z.string().min(1, "Please select a role")
+}).refine(
+    (data) => data.password === data.confirmPassword,
+    {
+        message: "Passwords do not match",
+        path: ["confirmPassword"]
+    }
+);
 const userScheme= z.object({
     userName:z.string().optional(),
     email:z.email().optional(),
@@ -327,4 +348,4 @@ const deleteUser= asyncHandler(async(req,res)=>{
 })
 
 
-export { AccessTokenGenerator,RefreshTokenGenerator,registerUser,login,logout,getProfile,updateProfile,passwordUpdate,deleteUser,userScheme}
+export { userRegisterSchema,AccessTokenGenerator,RefreshTokenGenerator,registerUser,login,logout,getProfile,updateProfile,passwordUpdate,deleteUser,userScheme}

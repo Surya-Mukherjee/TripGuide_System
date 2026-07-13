@@ -1,18 +1,19 @@
 import { Router } from "express";
 import { upload } from "../middleware/multer.middleware.js";
 import { reqbody } from "../middleware/bodycheck.middleware.js";
-import { deleteUser, getProfile, login, logout, passwordUpdate, registerUser, updateProfile, userScheme} from "../controllers/user.controller.js";
+import { deleteUser, getProfile, login, logout, passwordUpdate, registerUser, updateProfile, userRegisterSchema, userScheme} from "../controllers/user.controller.js";
 import { verifyjwt } from "../middleware/auth.middleware.js";
 import { validate } from "../middleware/validation.middleware.js";
+import { fileChecker } from "../middleware/fileChecker.middleware.js";
 const router= Router()
-router.route("/register").post(upload.single("profile-pic"),(req,res,next)=>{
+router.route("/register").post(fileChecker,upload.single("profile-pic"),(req,res,next)=>{
     console.log("reached reqbidy")
     next()
 },reqbody,validate(userScheme),registerUser)
 router.route("/login").post((req,res,next)=>{
     console.log("reached router")
     next()
-},reqbody,validate(userScheme),(req,res,next)=>{
+},reqbody,validate(userRegisterSchema),(req,res,next)=>{
     console.log("reached router")
     next()
 },login)

@@ -1,25 +1,39 @@
 import { ZodError } from "zod";
-import { apiResponse } from "../utilities/apiResponse.js";
 import { apiError } from "../utilities/apiError.js";
 
-const validate=(scheme)=>{
-    return (req,res,next)=>{
-    try{
-        req.body= scheme.parse(req.body)
+const validate = (schema) => {
+    return (req, res, next) => {
+        try {
+            req.body = schema.parse(req.body);
             next();
-    }catch(err){
-        if(err instanceof ZodError){
-            console.log("err:",err)
-            return res.status(400).json(
+        } catch (err) {
 
-                new apiError(400,err.errors,"Invalid request")
-            )
+            if (err instanceof ZodError) {
+
+                const errors = {};
+
+                err.issues.forEach((issue) => {
+                    errors[issue.path[0]] = issue.message;
+                });
+
+                return res.status(400).json(
+                    new apiError(
+                        400,
+                        errors,
+                        "Invalid request"
+                    )
+                );
+            }
+
+            return res.status(500).json(
+                new apiError(
+                    500,
+                    null,
+                    "Internal Server Error"
+                )
+            );
         }
-        return res.json(
-            new apiError(500,null,"Internal server Error")
-        )
-    }
+    };
+};
 
-}
-}
-export {validate}
+export { validate };
