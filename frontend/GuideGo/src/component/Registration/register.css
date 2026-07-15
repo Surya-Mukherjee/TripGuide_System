@@ -113,7 +113,7 @@
     background:transparent;
 }
 
-.eye{
+.eyeopen{
     cursor:pointer;
     color:#888
 }
@@ -154,7 +154,7 @@
     color:#666;
     font-size:.9rem
 }
-button{
+.submit{
     width:100%;
     border:none;
     padding:17px;
@@ -169,7 +169,7 @@ button{
     margin:10px 0 0;
 }
 
-button:hover{
+.submit:hover{
     background:#eb6820;
 }
 
@@ -204,6 +204,15 @@ button:hover{
 .profileUpload span{
     color:#ff8c38;
     font-weight:600;
+}
+.error{
+    color:#d32f2f;
+    background:#ffe9e9;
+    border-left:3px solid #d32f2f;
+    padding:8px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    margin-bottom:8px;
 }
 @media screen and (max-width:1024px){
 

@@ -54,7 +54,10 @@ const AccessTokenGenerator=async(user_id)=>{
     return {accessToken}
 }
 const registerUser= asyncHandler(async(req,res)=>{
-     const {userName,email,role,password,rememberMe}= req.body
+    console.log("Controller reached");
+console.log("Body:", req.body);
+console.log("File:", req.file);
+     const {userName,email,role,password}= req.body
       console.log(req.body)
      //check for empty username and email
      if(userName =="" || email ==""||password ==""){
@@ -70,14 +73,18 @@ const registerUser= asyncHandler(async(req,res)=>{
     { email: normalizedEmail }
   ]
 });
+    console.log("After query");
+console.log(registereduser ? registereduser._id : null);
+console.log("Still alive");
          const profilePicpath=req.file?.path
      if(registereduser){
+        console.log("hi everyone")
         fs.unlinkSync(profilePicpath)   
         
         throw new apiError(409,"user with same credentials already exists")
      }
 
-     console.log(req.file)
+     console.log("File2",req.file)
      if(!profilePicpath){
         throw new apiError(400,"required profilepic")
      }
@@ -107,11 +114,10 @@ const registerUser= asyncHandler(async(req,res)=>{
     }
     const refreshoptions={
         httpOnly:true,
-        secure:process.env.MODE_ENV==="production"
+        secure:process.env.MODE_ENV==="production",
+        maxAge:30 * 24 * 60 * 60 * 1000
     }
-  if(rememberMe==true){
-      refreshoptions.maxAge= 30 * 24 * 60 * 60 * 1000
-  }
+
 
          return res.status(201)
          .cookie("accessToken",accessToken,options)

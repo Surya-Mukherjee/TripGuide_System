@@ -6,14 +6,17 @@ import { verifyjwt } from "../middleware/auth.middleware.js";
 import { validate } from "../middleware/validation.middleware.js";
 import { fileChecker } from "../middleware/fileChecker.middleware.js";
 const router= Router()
-router.route("/register").post(fileChecker,upload.single("profile-pic"),(req,res,next)=>{
-    console.log("reached reqbidy")
+router.route("/register").post(upload.single("profile-pic"),(req,res,next)=>{
+    console.log("reached multer")
     next()
-},reqbody,validate(userScheme),registerUser)
+},fileChecker,(req,res,next)=>{
+    console.log("reached filechecker")
+    next()
+},reqbody,validate(userRegisterSchema),registerUser)
 router.route("/login").post((req,res,next)=>{
     console.log("reached router")
     next()
-},reqbody,validate(userRegisterSchema),(req,res,next)=>{
+},reqbody,validate(userScheme),(req,res,next)=>{
     console.log("reached router")
     next()
 },login)

@@ -1,6 +1,8 @@
-import { asyncHandler } from "../utilities/asyncHandler";
+import { apiError } from "../utilities/apiError.js";
+import { asyncHandler } from "../utilities/asyncHandler.js";
 
 export const fileChecker=asyncHandler(async(req,res,next)=>{
+    console.log(req.file)
     if(!req.file){
            return res.status(400).json(
         new apiError(
