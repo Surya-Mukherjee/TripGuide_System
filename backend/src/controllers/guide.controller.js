@@ -153,8 +153,6 @@ const updateGuideProfile=asyncHandler(async(req,res)=>{
 
         )
 })
-
-
 const listGuides= asyncHandler(async(req,res)=>{
     const{city, maxexpYrs,minexpYrs}=req.query;
 
