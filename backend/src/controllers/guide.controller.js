@@ -164,12 +164,17 @@ const listGuides= asyncHandler(async(req,res)=>{
         filter.city={$regex:city,$options:'i'}
     }
    
-    if(minexpYrs){
-        filter.experiencedYrs.$gte=Number(minexpYrs)
-    }
-    if(maxexpYrs){
+    if(minexpYrs || maxexpYrs){
+
+        filter.experiencedYrs={}
+        if(minexpYrs){
+            filter.experiencedYrs.$gte=Number(minexpYrs)
+        }
+         if(maxexpYrs){
         filter.experiencedYrs.$lte=Number(maxexpYrs)
     }
+    }
+   
     const guideList=await Guide.find(filter).select("bio userId experiencedYrs").populate("userId","userName profilePic")
 
     if(guideList.length==0){
