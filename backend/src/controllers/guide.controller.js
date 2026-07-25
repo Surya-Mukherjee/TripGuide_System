@@ -164,12 +164,12 @@ const listGuides = asyncHandler(async (req, res) => {
         limit = 6,
     } = req.query;
 
-    const currentPage = Number(page);
-    const pageLimit = Number(limit);
+    const currentPage = Math.max(Number(page), 1);
+    const pageLimit = Math.max(Number(limit), 1);
 
     const filter = {};
 
-    
+    // City
     if (city) {
         filter.city = {
             $regex: city,
@@ -177,7 +177,7 @@ const listGuides = asyncHandler(async (req, res) => {
         };
     }
 
-
+    // Experience
     if (minexpYrs || maxexpYrs) {
         filter.experiencedYrs = {};
 
@@ -190,7 +190,7 @@ const listGuides = asyncHandler(async (req, res) => {
         }
     }
 
-    
+    // Price
     if (minPrice || maxPrice) {
         filter.pricePerHour = {};
 
@@ -205,17 +205,19 @@ const listGuides = asyncHandler(async (req, res) => {
 
     const totalGuides = await Guide.countDocuments(filter);
 
+    if (totalGuides === 0) {
+        throw new apiError(404, "No guides found");
+    }
+
     const totalPages = Math.ceil(totalGuides / pageLimit);
 
     const guideList = await Guide.find(filter)
-        .select("bio userId experiencedYrs city language pricePerHour rating totalTours")
+        .select(
+            "bio userId experiencedYrs city language pricePerHour rating totalTours"
+        )
         .populate("userId", "userName profilePic")
         .skip((currentPage - 1) * pageLimit)
         .limit(pageLimit);
-
-    if (guideList.length === 0) {
-        throw new apiError(404, "No guides found");
-    }
 
     return res.status(200).json(
         new apiResponse(
