@@ -153,35 +153,83 @@ const updateGuideProfile=asyncHandler(async(req,res)=>{
 
         )
 })
-const listGuides= asyncHandler(async(req,res)=>{
-    const{city, maxexpYrs,minexpYrs}=req.query;
+const listGuides = asyncHandler(async (req, res) => {
+    const {
+        city,
+        minexpYrs,
+        maxexpYrs,
+        minPrice,
+        maxPrice,
+        page = 1,
+        limit = 6,
+    } = req.query;
 
-    const filter={}
+    const currentPage = Number(page);
+    const pageLimit = Number(limit);
+
+    const filter = {};
+
     
-    if(city){
-        filter.city={$regex:city,$options:'i'}
+    if (city) {
+        filter.city = {
+            $regex: city,
+            $options: "i",
+        };
     }
-   
-    if(minexpYrs || maxexpYrs){
 
-        filter.experiencedYrs={}
-        if(minexpYrs){
-            filter.experiencedYrs.$gte=Number(minexpYrs)
+
+    if (minexpYrs || maxexpYrs) {
+        filter.experiencedYrs = {};
+
+        if (minexpYrs) {
+            filter.experiencedYrs.$gte = Number(minexpYrs);
         }
-         if(maxexpYrs){
-        filter.experiencedYrs.$lte=Number(maxexpYrs)
-    }
-    }
-   
-    const guideList=await Guide.find(filter).select("bio userId experiencedYrs").populate("userId","userName profilePic")
 
-    if(guideList.length==0){
-        throw new apiError(500,"No result found for the search")
+        if (maxexpYrs) {
+            filter.experiencedYrs.$lte = Number(maxexpYrs);
+        }
     }
+
+    
+    if (minPrice || maxPrice) {
+        filter.pricePerHour = {};
+
+        if (minPrice) {
+            filter.pricePerHour.$gte = Number(minPrice);
+        }
+
+        if (maxPrice) {
+            filter.pricePerHour.$lte = Number(maxPrice);
+        }
+    }
+
+    const totalGuides = await Guide.countDocuments(filter);
+
+    const totalPages = Math.ceil(totalGuides / pageLimit);
+
+    const guideList = await Guide.find(filter)
+        .select("bio userId experiencedYrs city language pricePerHour rating totalTours")
+        .populate("userId", "userName profilePic")
+        .skip((currentPage - 1) * pageLimit)
+        .limit(pageLimit);
+
+    if (guideList.length === 0) {
+        throw new apiError(404, "No guides found");
+    }
+
     return res.status(200).json(
-        new apiResponse(200,{guideList},"guides fetched from the search parameters")
-    )
-})
+        new apiResponse(
+            200,
+            {
+                guideList,
+                currentPage,
+                totalPages,
+                totalGuides,
+            },
+            "Guides fetched successfully"
+        )
+    );
+});
 const getPublicGuideGuide =asyncHandler(async(req,res)=>{
     const guide= await Guide.findById(req.params.id).select("userId ratings experiencedYrs availableDays bio pricePerHour city avgRating totalRating").populate("userId","userName  profilePic ")
        
