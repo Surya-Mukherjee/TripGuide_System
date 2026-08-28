@@ -39,7 +39,7 @@ export function AuthProvider({children}){
           setUser(res.data.data.user)
           // const guide=await getFeaturedGuides();
           // console.log(guide)
-          // setGuides(guide)
+          // setGuides(guide)    
           
         }catch(err){
           setUser(null)

@@ -1,0 +1,90 @@
+.search-filter{
+    width:min(1200px,90%);
+    margin:2rem auto;
+}
+
+.filter-grid{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+    flex-wrap:wrap;
+
+    background:#fff;
+    padding:1.2rem 1.5rem;
+    border-radius:16px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+}
+
+.filter-grid input{
+    flex:1;
+    min-width:150px;
+    height:48px;
+
+    padding:0 1rem;
+
+    border:1px solid #d1d5db;
+    border-radius:10px;
+
+    font-size:.95rem;
+    transition:.25s;
+}
+
+.filter-grid input:focus{
+    outline:none;
+    border-color:#0f766e;
+    box-shadow:0 0 0 3px rgba(15,118,110,.15);
+}
+
+.clear-btn{
+    height:48px;
+    padding:0 1.6rem;
+
+    border:none;
+    border-radius:10px;
+
+    background:#0f766e;
+    color:#fff;
+
+    font-size:.95rem;
+    font-weight:600;
+    cursor:pointer;
+
+    white-space:nowrap;
+    transition:.25s;
+}
+
+.clear-btn:hover{
+    background:#115e59;
+}
+
+@media (max-width:992px){
+
+    .filter-grid{
+        justify-content:center;
+    }
+
+    .filter-grid input{
+        flex:1 1 220px;
+    }
+
+    .clear-btn{
+        width:220px;
+    }
+
+}
+
+@media (max-width:768px){
+
+    .filter-grid{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .filter-grid input,
+    .clear-btn{
+        width:100%;
+        flex:none;
+    }
+
+}

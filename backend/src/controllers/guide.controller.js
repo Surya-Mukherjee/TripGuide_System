@@ -169,7 +169,7 @@ const listGuides = asyncHandler(async (req, res) => {
 
     const filter = {};
 
-    // City
+    
     if (city) {
         filter.city = {
             $regex: city,
@@ -177,7 +177,6 @@ const listGuides = asyncHandler(async (req, res) => {
         };
     }
 
-    // Experience
     if (minexpYrs || maxexpYrs) {
         filter.experiencedYrs = {};
 

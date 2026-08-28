@@ -62,7 +62,7 @@ const Navbar = ({ isVisible }) => {
     </NavLink>
 
     <NavLink
-        to="/Guides"
+        to="/guides"
         className={({ isActive }) => isActive ? "active" : "notActive"}
     >
         Guides
@@ -176,7 +176,7 @@ const Navbar = ({ isVisible }) => {
     </NavLink>
 
     <NavLink
-        to="/Guides"
+        to="/guides"
         className={({ isActive }) => isActive ? "active" : "notActive"}
         onClick={closeMenu}
     >

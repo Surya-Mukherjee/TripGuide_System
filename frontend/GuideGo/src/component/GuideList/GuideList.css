@@ -1,0 +1,506 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
+}
+
+body{
+    background:#FFF8F2;
+    color:#2F2F2F;
+}
+
+.guide-page{
+    width:100%;
+    min-height:100vh;
+}
+
+
+/* ================= HERO ================= */
+
+.hero{
+    height:420px;
+    background:linear-gradient(135deg,#F7A84B,#F39C4A,#F6C177);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::before{
+
+    content:"";
+    position:absolute;
+    width:700px;
+    height:700px;
+    background:rgba(255,255,255,.12);
+    border-radius:50%;
+    top:-300px;
+    right:-200px;
+
+}
+
+.hero::after{
+
+    content:"";
+    position:absolute;
+    width:450px;
+    height:450px;
+    background:rgba(255,255,255,.08);
+    border-radius:50%;
+    left:-150px;
+    bottom:-200px;
+
+}
+
+.hero-content{
+
+    width:min(1200px,90%);
+    position:relative;
+    z-index:2;
+
+}
+
+.hero-content h1{
+
+    color:white;
+    font-size:3.8rem;
+    font-weight:700;
+    line-height:1.1;
+
+}
+
+.hero-content p{
+
+    margin-top:20px;
+    color:#FFF8EE;
+    font-size:1.15rem;
+    width:550px;
+
+}
+
+
+/* ================= FILTER ================= */
+
+.search-filter{
+
+    width:min(1200px,90%);
+    margin:auto;
+
+    margin-top:-55px;
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    display:flex;
+
+    gap:20px;
+
+    align-items:center;
+
+    box-shadow:0 18px 45px rgba(0,0,0,.12);
+
+    position:relative;
+
+    z-index:5;
+
+}
+
+.search-filter input,
+.search-filter select{
+
+    flex:1;
+
+    height:55px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:12px;
+
+    background:#F5F5F5;
+
+    padding:0 18px;
+
+    font-size:15px;
+
+}
+
+.search-filter button{
+
+    height:55px;
+
+    border:none;
+
+    background:#F39C4A;
+
+    color:white;
+
+    padding:0 28px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.search-filter button:hover{
+
+    background:#E67E22;
+
+}
+
+
+/* ================= LIST ================= */
+
+.guide-list{
+
+    width:min(1200px,90%);
+
+    margin:70px auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:30px;
+
+}
+
+
+/* ================= CARD ================= */
+
+.guide-card{
+
+    display:flex;
+
+    gap:35px;
+
+    background:white;
+
+    border-radius:24px;
+
+    padding:28px;
+
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
+
+    transition:.35s;
+
+}
+
+.guide-card:hover{
+
+    transform:translateY(-7px);
+
+    box-shadow:0 22px 55px rgba(0,0,0,.15);
+
+}
+
+.guide-images{
+
+    width:170px;
+
+    height:170px;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    flex-shrink:0;
+
+}
+
+.guide-images img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+.guide-details{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+}
+
+.guide-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.guide-top h2{
+
+    font-size:1.9rem;
+
+}
+
+.rating{
+
+    background:#FFF4E4;
+
+    color:#F39C4A;
+
+    padding:8px 16px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+}
+
+.location{
+
+    color:#666;
+
+    margin:8px 0;
+
+}
+
+.languages{
+
+    color:#888;
+
+}
+
+.bio{
+
+    margin:18px 0;
+
+    color:#555;
+
+    line-height:1.7;
+
+}
+
+.guide-bottom{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:15px;
+
+}
+
+.price{
+
+    font-size:1.6rem;
+
+    font-weight:700;
+
+    color:#E67E22;
+
+}
+
+.price span{
+
+    font-size:.9rem;
+
+    color:#777;
+
+}
+
+.view-btn{
+
+    border:none;
+
+    background:#F39C4A;
+
+    color:white;
+
+    padding:14px 28px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.view-btn:hover{
+
+    background:#E67E22;
+
+}
+
+
+/* ================= PAGINATION ================= */
+
+.pagination{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:14px;
+
+    margin-bottom:70px;
+
+}
+
+.pagination button{
+
+    width:48px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:white;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.3s;
+
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+
+}
+
+.pagination button:hover{
+
+    background:#F39C4A;
+
+    color:white;
+
+}
+
+.pagination .active{
+
+    background:#F39C4A;
+
+    color:white;
+
+}
+
+
+/* ================= STATES ================= */
+
+.guide-list h2{
+
+    text-align:center;
+
+    color:#666;
+
+    padding:70px 0;
+
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:992px){
+
+    .guide-card{
+
+        flex-direction:column;
+
+    }
+
+    .guide-image{
+
+        width:100%;
+
+        height:300px;
+
+    }
+
+    .hero-content h1{
+
+        font-size:3rem;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .search-filter{
+
+        flex-direction:column;
+
+    }
+
+    .search-filter input,
+    .search-filter select,
+    .search-filter button{
+
+        width:100%;
+
+    }
+
+    .hero{
+
+        height:350px;
+
+    }
+
+    .hero-content h1{
+
+        font-size:2.4rem;
+
+    }
+
+    .hero-content p{
+
+        width:100%;
+
+    }
+
+    .guide-top{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:10px;
+
+    }
+
+    .guide-bottom{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+
+    }
+
+}

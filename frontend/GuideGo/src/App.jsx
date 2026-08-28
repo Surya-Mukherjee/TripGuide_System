@@ -9,6 +9,7 @@ import Home from './Pages/Home';
 import Spinner from './component/smallSpinner/Spinner';
 import Login from './Pages/Login';
 import RegistrationPage from './Pages/RegistrationPage';
+import GuideList from './component/GuideList/GuideList';
 
 const App = () => {
     const [isLoading,setLoading]=useState(true);
@@ -25,8 +26,13 @@ const App = () => {
       {path:"login",Component:Login},
       {path:"register",Component:RegistrationPage}
     ]
+  },{
+    path:"/guides",
+    children:[
+      {index:true,Component:GuideList}
+    ]
   }
-],),[isVisible]
+]),[isVisible]
     );
    useEffect(() => {
   document.body.style.overflow = isLoading ? "hidden" : "auto";

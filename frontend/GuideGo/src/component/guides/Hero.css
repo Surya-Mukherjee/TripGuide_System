@@ -1,0 +1,83 @@
+.guide-hero{
+    width:100%;
+    min-height:55vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:6rem 1.5rem;
+    background:
+        radial-gradient(circle at top,#ea751c 0%,transparent 40%),
+        linear-gradient(180deg,#e38821 0%,#ffffff 100%);
+}
+
+.guide-hero-content{
+    max-width:900px;
+}
+
+.hero-tag{
+    display:inline-block;
+    padding:.5rem 1rem;
+    border-radius:999px;
+    background:#e8f7f5;
+    color:#0f766e;
+    font-weight:600;
+    margin-bottom:1.5rem;
+}
+
+.guide-hero h1{
+    font-size:clamp(2.5rem,6vw,4.5rem);
+    line-height:1.1;
+    font-weight:700;
+    color:#0f172a;
+    margin-bottom:1.5rem;
+}
+
+.guide-hero p{
+    max-width:700px;
+    margin:auto;
+    color:#64748b;
+    font-size:1.15rem;
+    line-height:1.8;
+}
+
+.hero-stats{
+    margin-top:3rem;
+    display:flex;
+    justify-content:center;
+    gap:4rem;
+    flex-wrap:wrap;
+}
+
+.hero-stats div{
+    text-align:center;
+}
+
+.hero-stats h3{
+    font-size:2rem;
+    color:#0f766e;
+    margin-bottom:.3rem;
+}
+
+.hero-stats span{
+    color:#64748b;
+}
+
+@media(max-width:768px){
+
+    .guide-hero{
+        padding:5rem 1.2rem;
+    }
+
+    .hero-stats{
+        gap:2rem;
+    }
+
+    .guide-hero h1{
+        font-size:2.5rem;
+    }
+
+    .guide-hero p{
+        font-size:1rem;
+    }
+}
