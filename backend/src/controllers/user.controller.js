@@ -10,6 +10,7 @@ import fs from 'fs'
 import { deletion } from '../utilities/deletion.js'
 import {z} from 'zod'
 import jwt from 'jsonwebtoken';
+import { Booking } from '../models/bookings.model.js'
 const userRegisterSchema = z.object({
     userName: z.string().min(1, "Username is required"),
 
@@ -250,13 +251,18 @@ const logout=asyncHandler(async(req,res)=>{
 const getProfile= asyncHandler(async(req,res)=>{
    
     const user= req.user
+    const bookingCount= await Booking.countDocuments(
+        {
+            userId:user._id
+        }
+    )
     if(!user){
         throw new apiError(401,"Unauthorized")
     }
     return res
     .status(200)
     .json(
-        new apiResponse(200,{user:user},"Profile fetched successfully")
+        new apiResponse(200,{user:user,TotalBooking:bookingCount},"Profile fetched successfully")
     )
 })
 //update profile(pic,username,email,password)

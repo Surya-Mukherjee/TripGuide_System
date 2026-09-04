@@ -136,15 +136,21 @@ export default function Register() {
           </div>
            
         </div>
+
+//right side
+
+
+
+
         <div className="rightContent">
             <div className="formcard">
                 <h2>Create your Account</h2>
                 <p>Start your journey with GuideGo</p>
                <form onSubmit={handleSubmit}>
 
-    {errors.profilePic && (
-        <p className="error">{errors.profilePic}</p>
-    )}
+         {errors.profilePic && (
+            <p className="error">{errors.profilePic}</p>
+      )}
 
     <div className="profileUpload">
         <label htmlFor="profile">

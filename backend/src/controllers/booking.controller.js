@@ -173,7 +173,7 @@ const getBookingHistoryTourist=asyncHandler(async(req,res)=>{
         }
     })
     .sort({createdAt:-1})
-    .limit(10)
+    .limit(5)
     
     if(booking.length===0){
         return res.json(

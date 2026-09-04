@@ -78,7 +78,7 @@ const Navbar = ({ isVisible }) => {
                     <div className='imgcontainer'>
                         <NavLink
                             className="profile"
-                            to="/users/profile"
+                            to="/My-profile"
                         >
                             <img
                                 className="profilePic"
@@ -124,7 +124,7 @@ const Navbar = ({ isVisible }) => {
 
             <NavLink
                 className="mobileProfile"
-                to="/users/profile"
+                to="/My-profile"
                 onClick={closeMenu}
             >
                

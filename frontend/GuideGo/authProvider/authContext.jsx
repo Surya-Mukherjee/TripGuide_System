@@ -31,17 +31,18 @@ export function AuthProvider({children}){
     return res.message
  }
  useEffect(()=>{
+   console.log("1. Fetching current user...");
     const fetchUser=async()=>{
         try{
+
           setLoading(true)
           const res=await getCurrentUser()
-           
+           console.log("res:",res);
           setUser(res.data.data.user)
-          // const guide=await getFeaturedGuides();
-          // console.log(guide)
-          // setGuides(guide)    
+            console.log("res expected:",res.data.data.user)
           
         }catch(err){
+          console.error("error:",err)
           setUser(null)
         }finally{
           setLoading(false)
