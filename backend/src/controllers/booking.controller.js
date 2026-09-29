@@ -143,12 +143,12 @@ const getBookedBookingGuide=asyncHandler(async(req,res)=>{
 //get booked bookings(for tourist)
 const getBookedRequestTourist=asyncHandler(async(req,res)=>{
     const userId=req.user._id;
-    const booking= await Booking.find({userId,status:"BOOKED"}).populate("userId","userName email" ).populate({
+    const booking= await Booking.find({userId,status:"BOOKED"}).populate({
         path:"guideId",
         select:"city rating userId",
         populate:{
             path:"userId",
-            select:"userName email "
+            select:"userName email profilePic "
         }
     })
     if(booking.length===0){
@@ -169,7 +169,7 @@ const getBookingHistoryTourist=asyncHandler(async(req,res)=>{
         select:"city rating userId",
         populate:{
             path:"userId",
-            select:"userName email "
+            select:"userName email profilePic"
         }
     })
     .sort({createdAt:-1})

@@ -1,0 +1,166 @@
+.UpcomingBooking {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1.5rem 0;
+}
+
+/* Booking Card */
+.card-container {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    gap: 1.5rem;
+
+    padding: 1.25rem;
+
+    background: #ffffff;
+    border: 1px solid #e8e3e0;
+    border-radius: 16px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.09);
+}
+
+
+/* Guide Image */
+.guide-img {
+    width: 150px;
+    min-width: 150px;
+    height: 150px;
+
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.guide-img img {
+    width: 100%;
+    height: 100%;
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* Booking Information */
+.booking-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+
+/* Header */
+.BookingHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.BookingHeader h2 {
+    margin: 0;
+
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #292524;
+}
+
+
+/* Status */
+.BookingStatus {
+    padding: 0.4rem 0.75rem;
+
+    border-radius: 999px;
+
+    background: #f4e8e4;
+    color: #8b5e52;
+
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+
+/* Guide Name */
+.GuideName {
+    margin: 0;
+
+    color: #57534e;
+    font-size: 0.95rem;
+}
+
+
+/* Details */
+.BookingDetails {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    margin-top: 0.5rem;
+}
+
+.BookingDetails > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.BookingDetails span {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #a8a29e;
+}
+
+.BookingDetails strong {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #44403c;
+}
+
+
+/* Empty State */
+.UpcomingBooking > p {
+    width: 100%;
+    padding: 3rem 1rem;
+
+    text-align: center;
+
+    color: #78716c;
+    font-size: 0.95rem;
+
+    background: #faf9f8;
+    border: 1px dashed #d6d3d1;
+    border-radius: 14px;
+}
+
+
+/* Responsive */
+@media (max-width: 700px) {
+    .card-container {
+        flex-direction: column;
+    }
+
+    .guide-img {
+        width: 100%;
+        height: 200px;
+    }
+
+    .BookingHeader {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .BookingDetails {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+}
