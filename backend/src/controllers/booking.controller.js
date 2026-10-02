@@ -10,6 +10,7 @@ const bookingScheme=z.object({
     guideId:z.string().min(1),
     tourDate:z.string().date(),
     numberOfPeople:z.number(),
+    bookingPrice:z.number()
 })
 //booking requests
 const bookingRequest=asyncHandler(async(req,res)=>{
@@ -53,7 +54,8 @@ const bookingRequest=asyncHandler(async(req,res)=>{
     if(guide.blockedDates.includes(tourDate)){
         throw new apiError(409,"Guide is not available for  the date specified")
     }
-    const bookingReq= Booking.create(
+    console.log('bookingPrice',bookingPrice)
+    const bookingReq= await Booking.create(
         {
             guideId:guideId,
             userId:userId,
@@ -64,7 +66,7 @@ const bookingRequest=asyncHandler(async(req,res)=>{
             noOfPeople:numberOfPeople
         }
     )
-
+    console.log("BOOKINGREQ:",bookingReq)
     if(!bookingReq){
         throw new apiError(500,"Booking request failed")
     }

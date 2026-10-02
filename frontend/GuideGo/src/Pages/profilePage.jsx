@@ -1,14 +1,14 @@
-import React from 'react'
-import Userprofile from '../component/UserProfile/userprofile'
-import Navbar from '../component/navbar/navbar.jsx'
+// import React from 'react'
+// import Userprofile from '../component/UserProfile/userprofile'
+// import Navbar from '../component/navbar/navbar.jsx'
 
-const ProfilePage = () => {
-  return (
-    <>
+// const ProfilePage = () => {
+//   return (
+//     <>
      
-      <Userprofile/>
-    </>
-  )
-}
+//       <Userprofile/>
+//     </>
+//   )
+// }
 
-export default ProfilePage
+// export default ProfilePage

@@ -11,7 +11,7 @@ import Login from './Pages/Login';
 import RegistrationPage from './Pages/RegistrationPage';
 import GuideList from './component/GuideList/GuideList';
 import GuideListpage from './Pages/GuideListpage';
-import ProfilePage from './Pages/profilePage';
+// import ProfilePage from './Pages/profilePage';
 
 const App = () => {
     const [isLoading,setLoading]=useState(true);
@@ -36,7 +36,7 @@ const App = () => {
   },
   {
     path:"/My-profile",
-    Component:ProfilePage
+    Component:Home
   }
 ]),[isVisible]
     );
