@@ -1,0 +1,52 @@
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 24px;
+  background: linear-gradient(115deg, #e9a98b 0%, #c49ba5 52%, #777d9f 100%);
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(92, 65, 78, 0.10);
+}
+
+.profile-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-info h1 {
+  color: #fff;
+}
+
+.profile-info p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.profile-role {
+  background: rgba(255, 255, 255, 0.85);
+  color: #b85e3d;
+}
+
+.edit-profile-btn {
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+.edit-profile-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+@media (max-width: 600px) {
+  .profile-header {
+    flex-wrap: wrap;
+    padding: 22px;
+    gap: 16px;
+  }
+
+  .edit-profile-btn {
+    width: 100%;
+  }
+}

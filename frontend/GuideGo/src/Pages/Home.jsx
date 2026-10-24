@@ -4,18 +4,16 @@ import Navbar from '../component/navbar/navbar'
 import HowItWorks from '../component/working/HowItWorks'
 import FeaturedGuides from '../component/Featured Guides/FeaturedGuides'
 import Mission from '../component/Mission/mission'
-import Footer from '../component/Footer/Footer'
 import Spinner from '../component/smallSpinner/Spinner'
 
 const Home = ({isVisible}) => {
   return (
     <>
-        <Navbar isVisible={isVisible}/>
       <Hero isVisible={isVisible}/>
       <HowItWorks/>
       <FeaturedGuides/>
       <Mission />
-      <Footer/>
+      
      
     </>
   )

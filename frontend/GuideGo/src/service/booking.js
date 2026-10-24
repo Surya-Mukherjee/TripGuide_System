@@ -22,12 +22,14 @@ export async function getGuideUpcomingBookings() {
 
 export async function getTouristUpcomingBookings() {
   const res = await api.get("/Booking/tourist/upcoming-bookings");
-  return res.data;
+   console.log("resbooking",res)
+  return res.data.data;
 }
 
 export async function getBookingHistory() {
   const res = await api.get("/Booking/bookings/history");
-  return res.data;
+ 
+  return res.data.data;
 }
 
 export async function acceptBooking(bookingId) {

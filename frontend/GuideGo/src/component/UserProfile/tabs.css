@@ -1,0 +1,35 @@
+
+.profile-tabs {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .profile-tabs {
+    display: flex;
+    gap: 8px;
+    padding: 5px;
+    margin-top: 24px;
+
+    background: #f0e8e2;
+    border-radius: 14px;
+  }
+
+  .tab {
+    flex: 1;
+    padding: 11px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: #777078;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .tab.active {
+    background: white;
+    color: #b85e3d;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(67, 43, 38, 0.06);
+  }
+}

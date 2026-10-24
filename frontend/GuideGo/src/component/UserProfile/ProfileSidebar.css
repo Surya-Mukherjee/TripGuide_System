@@ -1,0 +1,73 @@
+
+.profile-sidebar {
+  align-self: start;
+  position: sticky;
+  top: 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  padding: 16px;
+
+  /* Warm GuideGo theme */
+  background: linear-gradient(
+    180deg,
+    #fff0e5 0%,
+    #fbe4d5 55%,
+    #f7ddce 100%
+  );
+
+  border: 1px solid #f0d4c3;
+  border-radius: 20px;
+
+  box-shadow: 0 8px 30px rgba(103, 65, 48, 0.06);
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  width: 100%;
+  padding: 14px 12px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: transparent;
+  color: #514955;
+
+  text-align: left;
+  font: inherit;
+  font-size: 14px;
+
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.55);
+  color: #c45a37;
+}
+
+.sidebar-item.active {
+  background: linear-gradient(
+    100deg,
+    #ffdfca 0%,
+    #f8d6c2 100%
+  );
+
+  color: #e65b2f;
+  font-weight: 600;
+
+  box-shadow: inset 3px 0 0 #f0643b;
+}
+
+@media (max-width: 768px) {
+  .profile-sidebar {
+    display: none;
+  }
+}

@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import Loader from './component/loader'
 import { useAuth } from '../authProvider/authContext';
-import Navbar from './component/navbar/navbar';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import NavFooterLayout from './Layout/NavFooterLayout';
 import Hero from './component/landing/Hero';
@@ -11,6 +10,7 @@ import Login from './Pages/Login';
 import RegistrationPage from './Pages/RegistrationPage';
 import GuideList from './component/GuideList/GuideList';
 import GuideListpage from './Pages/GuideListpage';
+import ProfilePage from './Pages/profilePage';
 // import ProfilePage from './Pages/profilePage';
 
 const App = () => {
@@ -19,10 +19,20 @@ const App = () => {
     const [isVisible,setVisible]=useState(false)
     const router=useMemo(()=>
       createBrowserRouter([
-  {
-    path:"/",
-    element:<Home isVisible={isVisible}/>
+  { 
+    element:<NavFooterLayout isVisible={isVisible}/>,
+    children:[{
+      path:"/",
+    element:<Home isVisible={isVisible} />
   },{
+    
+    path:"/My-profile",
+    element:<ProfilePage/>
+  }
+  
+    ]
+  }
+  ,{
     path:"/users",
     children:[
       {path:"login",Component:Login},
@@ -34,10 +44,7 @@ const App = () => {
       {index:true,Component:GuideListpage}
     ]
   },
-  {
-    path:"/My-profile",
-    Component:Home
-  }
+ 
 ]),[isVisible]
     );
    useEffect(() => {

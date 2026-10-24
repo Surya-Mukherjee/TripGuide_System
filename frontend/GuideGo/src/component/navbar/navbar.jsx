@@ -5,7 +5,7 @@ import Spinner from '../smallSpinner/Spinner'
 import './navbar.css'
 
 const Navbar = ({ isVisible }) => {
-
+   console.log("isvisible",isVisible)
     const { user, loading } = useAuth()
     const navigate = useNavigate()
 

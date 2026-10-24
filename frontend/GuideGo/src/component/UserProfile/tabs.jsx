@@ -1,11 +1,19 @@
-import React from 'react'
-
-const tabs = () => {
+import React from "react";
+import './tabs.css'
+const Tabs = ({activeSection}) => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <div className="profile-tabs">
 
-export default tabs
+      <button className={`tab ${activeSection==='upcoming'?'active':''}`}>
+        Upcoming
+      </button>
+
+      <button className={`tab ${activeSection==='past'?'active':''}`}>
+        Past
+      </button>
+
+    </div>
+  );
+};
+
+export default Tabs;

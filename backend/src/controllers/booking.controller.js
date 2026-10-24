@@ -79,7 +79,7 @@ const bookingRequest=asyncHandler(async(req,res)=>{
 //get  booking request for tourist profile
 const getBookingRequestTourist=asyncHandler(async(req,res)=>{
     const userId=req.user._id;
-    const booking= await Booking.find({userId,status:"PENDING"}).populate("userId","userName email" ).populate({
+    const booking= await Booking.find({userId,status:{$in:["PENDING", "BOOKED"]}}).populate("userId","userName email" ).populate({
         path:"guideId",
         select:"city rating userId",
         populate:{
@@ -87,6 +87,7 @@ const getBookingRequestTourist=asyncHandler(async(req,res)=>{
             select:"userName email "
         }
     })
+    console.log(booking)
     if(booking.length===0){
         return res.json(
             new apiResponse(404,[],"No upcoming bookings")
@@ -143,25 +144,25 @@ const getBookedBookingGuide=asyncHandler(async(req,res)=>{
 
 
 //get booked bookings(for tourist)
-const getBookedRequestTourist=asyncHandler(async(req,res)=>{
-    const userId=req.user._id;
-    const booking= await Booking.find({userId,status:"BOOKED"}).populate({
-        path:"guideId",
-        select:"city rating userId",
-        populate:{
-            path:"userId",
-            select:"userName email profilePic "
-        }
-    })
-    if(booking.length===0){
-        return res.json(
-            new apiResponse(404,[],"No upcoming bookings")
-        )
-    }
-    return res.json(
-        new apiResponse(200,booking,"Bookings are fetched successfully ")
-    )
-})
+// const getBookedRequestTourist=asyncHandler(async(req,res)=>{
+//     const userId=req.user._id;
+//     const booking= await Booking.find({userId,status:"BOOKED"}).populate({
+//         path:"guideId",
+//         select:"city rating userId",
+//         populate:{
+//             path:"userId",
+//             select:"userName email profilePic "
+//         }
+//     })
+//     if(booking.length===0){
+//         return res.json(
+//             new apiResponse(404,[],"No upcoming bookings")
+//         )
+//     }
+//     return res.json(
+//         new apiResponse(200,booking,"Bookings are fetched successfully ")
+//     )
+// })
 
 //get booking history
 const getBookingHistoryTourist=asyncHandler(async(req,res)=>{
@@ -190,9 +191,15 @@ const getBookingHistoryTourist=asyncHandler(async(req,res)=>{
 //cancelling booking Request
 const cancelBooking=asyncHandler(async(req,res)=>{
     const {bookingId}=req.params
-    const Bookings=await Booking.find({bookingId})
+    console.log("bookingId",bookingId)
+    console.log("Full URL:", req.originalUrl);
+    console.log("params",req.params)
+    const Bookings=await Booking.findById(bookingId)
     if(!Bookings){
         throw new apiError(404,"Booking not found")
+    }
+      if(Bookings){
+        console.log("Found")
     }
     if(Bookings.status=="COMPLETED"){
         throw new apiError(409,"Cant cancel a completed tour")
@@ -239,4 +246,4 @@ const RejectBooking=asyncHandler(async(req,res)=>{
     )
 })
 
-export {bookingRequest,RejectBooking,AcceptBooking,getBookingRequestTourist,getBookingRequestGuide,getBookedBookingGuide,getBookingHistoryTourist,getBookedRequestTourist,cancelBooking,bookingScheme}
+export {bookingRequest,RejectBooking,AcceptBooking,getBookingRequestTourist,getBookingRequestGuide,getBookedBookingGuide,getBookingHistoryTourist,cancelBooking,bookingScheme}
